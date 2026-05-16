@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('GUYAHSUAN Law Office | 律師等')}"></head>
+<body>
+    <div id="preloader"></div>
+    <div class="main-wrapper">
+        <header th:replace="~{fragments/layout :: header}"></header>
+
+        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" data-background="/img/attorney_bg.jpg">
+            <div class="container pt-1-9 pt-sm-6 pt-md-0 mt-n1-9">
+                <div class="row align-items-center position-relative z-index-1 justify-content-center">
+                    <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7 text-center py-5">
+                        <h1 class="text-white" style="letter-spacing:5px;">律師等</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="section-heading">
+                    <span class="alt-font" style="letter-spacing:10px;">律師等</span>
+                    <h2>Attorneys, etc.</h2>
+                </div>
+                <div class="row mt-n1-9">
+                    <div class="col-md-6 col-lg-4 mt-1-9" th:each="item : ${attorneys}">
+                        <div class="card card-style6 border-radius-5 border-0" style="background-color:#e2e3e4">
+                            <div class="card-body" th:if="${item['photo'] != null and item['photo'] != ''}">
+                                <img th:src="${item['photo']}" th:alt="${item['name']}" style="width:100%;max-height:300px;object-fit:cover;border-radius:5px;">
+                            </div>
+                            <div class="card-body">
+                                <h4><a th:href="@{/attorney/{id}(id=${item['id']})}" th:text="${item['name']}">律師姓名</a></h4>
+                                <span class="text-primary" th:text="${item['title']}">職稱</span>
+                                <p class="mt-2" th:text="${item['specialty'] != null} ? ${#strings.abbreviate(item['specialty'], 100)} : ''">專長</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{fragments/layout :: footer}"></footer>
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('GUYAHSUAN Law Office | 免費法律諮詢')}"></head>
+<body>
+    <div id="preloader"></div>
+    <div class="main-wrapper">
+        <header th:replace="~{fragments/layout :: header}"></header>
+
+        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" data-background="/img/consultation_bg.jpg">
+            <div class="container pt-1-9 pt-sm-6 pt-md-0 mt-n1-9">
+                <div class="row align-items-center position-relative z-index-1 justify-content-center">
+                    <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7 text-center py-5">
+                        <span class="alt-font" style="letter-spacing:10px;">免費法律諮詢</span>
+                        <h1 class="text-white" style="letter-spacing:5px;">Free Legal Counsel</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h2 class="h1 mb-4" style="font-size:2.0rem;font-weight:300;">Service Time</h2>
+                        <p class="mb-2-2 display-28">
+                            曾朝榮議員服務處：<br>
+                            臺中市北屯區東山路一段156-6號<br>
+                            周六上午10：00 ~ 12：00<br>
+                            敬請事先預約：<span th:text="${site != null ? site.get('phone') : '04-25353236'}">04-25353236</span><br><br><br>
+                            三分埔松聖宮：<br>
+                            臺中市北屯區松竹路二段308號<br>
+                            每月第一個週六上午09：30 ~ 11：30<br>
+                            敬請事先預約：<span th:text="${site != null ? site.get('phone') : '04-25353236'}">04-25353236</span>
+                        </p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="bg-light p-4 p-md-5 rounded">
+                            <h3 class="mb-4" style="letter-spacing:5px;">線上法律諮詢</h3>
+                            <form id="consultationForm">
+                                <div class="mb-3">
+                                    <label class="form-label">姓名 <span class="text-danger">*</span></label>
+                                    <input type="text" name="name" class="form-control" required placeholder="請輸入姓名">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">電話</label>
+                                    <input type="text" name="phone" class="form-control" placeholder="請輸入電話">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" placeholder="請輸入Email">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">諮詢主題 <span class="text-danger">*</span></label>
+                                    <input type="text" name="subject" class="form-control" required placeholder="請輸入諮詢主題">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">諮詢內容 <span class="text-danger">*</span></label>
+                                    <textarea name="content" class="form-control" rows="5" required placeholder="請詳細描述您的問題"></textarea>
+                                </div>
+                                <button type="submit" class="butn md" style="letter-spacing:5px;">送出諮詢</button>
+                            </form>
+                            <div id="consultationSuccess" class="alert alert-success mt-3" style="display:none;">
+                                諮詢已送出，我們會盡快與您聯繫。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{fragments/layout :: footer}"></footer>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        document.getElementById('consultationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+            var data = {};
+            new FormData(form).forEach(function(value, key) { data[key] = value; });
+
+            fetch('/api/consultation/public', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(function(res) {
+                if (res.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('consultationSuccess').style.display = 'block';
+                } else {
+                    alert('送出失敗，請稍後再試');
+                }
+            }).catch(function() {
+                alert('送出失敗，請稍後再試');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('GUYAHSUAN Law Office | 案件實績')}"></head>
+<body>
+    <div id="preloader"></div>
+    <div class="main-wrapper">
+        <header th:replace="~{fragments/layout :: header}"></header>
+
+        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" data-background="/img/case_bg.jpg">
+            <div class="container pt-1-9 pt-sm-6 pt-md-0 mt-n1-9">
+                <div class="row align-items-center position-relative z-index-1 justify-content-center">
+                    <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7 text-center py-5">
+                        <span class="alt-font" style="letter-spacing:10px;">案件實績</span>
+                        <h1 class="text-white" style="letter-spacing:5px;">Successful Case</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="section-heading">
+                    <span class="alt-font" style="letter-spacing:10px;">案件實績</span>
+                    <h2>Successful Case</h2>
+                </div>
+                <div class="row mt-n1-9">
+                    <div class="col-md-6 col-lg-4 mt-1-9" th:each="item : ${cases}">
+                        <article class="card card-style3 position-relative border-0 rounded-0 bg-transparent h-100">
+                            <div class="card-img">
+                                <img th:src="${item.get('image') != null ? item.get('image') : '/img/case1.jpg'}" th:alt="${item.get('title')}">
+                                <div class="tags">
+                                    <a style="letter-spacing:10px;" th:text="${item.get('category')}">類別</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-3">
+                                    <li class="d-inline-block me-3"><i class="far fa-calendar-check me-1 text-primary"></i> <span th:text="${item.get('case_date')}">日期</span></li>
+                                </ul>
+                                <h3 class="mb-3 h4"><a th:href="@{/case/{id}(id=${item.get('id')})}" th:text="${item.get('title')}">標題</a></h3>
+                                <p th:text="${item.get('summary') != null ? item.get('summary') : ''}">描述</p>
+                                <a th:href="@{/case/{id}(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{fragments/layout :: footer}"></footer>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

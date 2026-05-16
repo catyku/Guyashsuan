@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # ==================== MariaDB ====================
+  guyahsuan-db:
+    image: mariadb:10
+    container_name: guyahsuan-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-tc12834843}
+      MYSQL_DATABASE: ${DB_NAME:-guyahsuan}
+      MYSQL_CHARACTER_SET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+      TZ: Asia/Taipei
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - guyahsuan-db-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - guyahsuan-net
+
+  # ==================== Tomcat (Spring Boot WAR) ====================
+  guyahsuan-app:
+    image: tomcat:11-jdk25
+    container_name: guyahsuan-app
+    restart: unless-stopped
+    depends_on:
+      guyahsuan-db:
+        condition: service_healthy
+    environment:
+      # ==================== 資料庫設定 ====================
+      DB_HOST: guyahsuan-db
+      DB_PORT: "3306"
+      DB_NAME: ${DB_NAME:-guyahsuan}
+      DB_USER: root
+      DB_PASSWORD: ${DB_ROOT_PASSWORD:-tc12834843}
+      DB_TIMEZONE: Asia/Taipei
+      DB_POOL_MAX: "10"
+      DB_POOL_MIN: "2"
+      # ==================== 伺服器設定 ====================
+      SERVER_PORT: "8080"
+      CONTEXT_PATH: /
+      # ==================== Session 設定 ====================
+      SESSION_TIMEOUT: 3600s
+      SESSION_MAX_SESSIONS: "1"
+      # ==================== 檔案上傳設定 ====================
+      UPLOAD_ROOT_PATH: /app/uploads
+      UPLOAD_MAX_FILE_SIZE: 10MB
+      UPLOAD_MAX_REQUEST_SIZE: 30MB
+      UPLOAD_IMG_WIDTH: "1024"
+      UPLOAD_IMG_HEIGHT: "768"
+      UPLOAD_THUMBNAIL_THRESHOLD: "5242880"
+      # ==================== 日誌設定 ====================
+      LOG_LEVEL_ROOT: INFO
+      TEST_MODE: "false"
+      # ==================== JVM 設定 ====================
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+      # ==================== Application Release ====================
+      APP_VERSION: ${APP_VERSION:-latest}
+    ports:
+      - "${APP_PORT:-8092}:8080"
+    volumes:
+      - guyahsuan-uploads:/app/uploads
+      - ./target/sas.war:/usr/local/tomcat/webapps/ROOT.war:ro
+    networks:
+      - guyahsuan-net
+
+volumes:
+  guyahsuan-db-data:
+    driver: local
+  guyahsuan-uploads:
+    driver: local
+
+networks:
+  guyahsuan-net:
+    driver: bridge

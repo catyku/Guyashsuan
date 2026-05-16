@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${attorney.get('name') + ' - 古雅軒法律事務所'})}"></head>
+<body>
+    <div id="preloader"></div>
+    <div class="main-wrapper">
+        <header th:replace="~{fragments/layout :: header}"></header>
+
+        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" data-background="/img/attorney_bg.jpg">
+            <div class="container pt-1-9 pt-sm-6 pt-md-0 mt-n1-9">
+                <div class="row align-items-center position-relative z-index-1 justify-content-center">
+                    <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7 text-center py-5">
+                        <h1 class="text-white" style="letter-spacing:5px;" th:text="${attorney.get('name')}">律師姓名</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4" th:if="${attorney.get('photo') != null and attorney.get('photo') != ''}">
+                        <img th:src="${attorney.get('photo')}" th:alt="${attorney.get('name')}" class="border-radius-5" style="width:100%;">
+                    </div>
+                    <div class="col-lg-8">
+                        <h2 th:text="${attorney.get('name')}">律師姓名</h2>
+                        <p class="text-primary mb-3" th:text="${attorney.get('title')}">職稱</p>
+                        <div th:if="${attorney.get('specialty') != null}" class="mb-3">
+                            <h5>專長領域</h5>
+                            <p th:text="${attorney.get('specialty')}">專長</p>
+                        </div>
+                        <div th:if="${attorney.get('education') != null}" class="mb-3">
+                            <h5>學歷</h5>
+                            <p th:text="${attorney.get('education')}">學歷</p>
+                        </div>
+                        <div th:if="${attorney.get('experience') != null}" class="mb-3">
+                            <h5>經歷</h5>
+                            <p th:text="${attorney.get('experience')}">經歷</p>
+                        </div>
+                        <div th:if="${attorney.get('description') != null}" class="mb-3">
+                            <h5>簡介</h5>
+                            <p th:text="${attorney.get('description')}">簡介</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other Attorneys -->
+        <section class="bg-light">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="alt-font" style="letter-spacing:10px;">其他律師</span>
+                    <h2>Other Attorneys</h2>
+                </div>
+                <div class="row mt-n1-9">
+                    <div class="col-md-4 mt-1-9" th:each="att : ${attorneys}">
+                        <a th:href="@{/attorney/{id}(id=${att.get('id')})}" class="text-decoration-none">
+                            <div class="card card-style6 border-radius-5 border-0" style="background-color:#e2e3e4">
+                                <div class="card-body">
+                                    <h5 th:text="${att.get('name')}">律師姓名</h5>
+                                    <span class="text-primary" th:text="${att.get('title')}">職稱</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{fragments/layout :: footer}"></footer>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

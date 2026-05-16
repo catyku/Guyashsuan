@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('GUYAHSUAN Law Office | 事務所概要')}"></head>
+<body>
+    <div id="preloader"></div>
+    <div class="main-wrapper">
+        <header th:replace="~{fragments/layout :: header}"></header>
+
+        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" data-background="/img/about_bg.jpg">
+            <div class="container pt-1-9 pt-sm-6 pt-md-0 mt-n1-9">
+                <div class="row align-items-center position-relative z-index-1 justify-content-center">
+                    <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7 text-center py-5">
+                        <span class="alt-font" style="letter-spacing:10px;">事務所概要</span>
+                        <h1 class="text-white" style="letter-spacing:5px;">Office Introduction</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-1-9 mb-lg-0">
+                        <img src="/img/about-01.jpg" alt="關於我們" class="border-radius-5" style="width:100%;">
+                    </div>
+                    <div class="col-lg-6">
+                        <h2 class="h1 mb-4" style="font-size:1.7rem;">About Us</h2>
+                        <p class="mb-2-2 lead font-weight-400 text-primary" style="letter-spacing:5px;"
+                           th:text="${site != null and site.get('description') != null} ? ${site.get('description')} : '古雅軒法律事務所'">
+                            古雅軒法律事務所描述
+                        </p>
+                        <div class="mt-4">
+                            <span class="bg-primary about-icon text-white"><i class="fas fa-phone-alt" style="color:#fff;"></i></span>
+                            <h4 class="mb-0 h5" style="color:#000;">Contact Us：<span th:text="${site != null ? site.get('phone') : '04-25353236'}">04-25353236</span></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Attorneys -->
+        <section class="bg-light">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="alt-font" style="letter-spacing:10px;">律師團隊</span>
+                    <h2>Our Attorneys</h2>
+                </div>
+                <div class="row mt-n1-9">
+                    <div class="col-md-6 col-lg-4 mt-1-9" th:each="att : ${attorneys}">
+                        <div class="card card-style6 border-radius-5 border-0" style="background-color:#e2e3e4">
+                            <div class="card-body">
+                                <h4><a th:href="@{/attorney/{id}(id=${att.get('id')})}" th:text="${att.get('name')}">律師姓名</a></h4>
+                                <span class="text-primary" th:text="${att.get('title')}">職稱</span>
+                                <p class="mt-2" th:text="${att.get('specialty') != null ? #strings.abbreviate(att.get('specialty'), 80) : ''}">專長</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{fragments/layout :: footer}"></footer>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

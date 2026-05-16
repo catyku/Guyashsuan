@@ -1,0 +1,38 @@
+# 環境變數
+.env
+
+# Maven
+target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+
+# Node
+node_modules/
+dist/
+
+# Uploads
+uploads-law/
+# Deploy
+deploy/sas.war
+deploy/.env
+
+# Uploads
+uploads-law/
+
+# Static admin assets (rebuilt by pnpm build)
+src/main/resources/static/admin/assets/
+src/main/resources/static/admin/index.html
+
+# TinyMCE local copies
+src/main/resources/static/tinymce/
+src/main/resources/static/admin/tinymce/

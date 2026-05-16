@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('GUYAHSUAN Law Office | 業務領域')}"></head>
+<body>
+    <div id="preloader"></div>
+    <div class="main-wrapper">
+        <header th:replace="~{fragments/layout :: header}"></header>
+
+        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" data-background="/img/service_bg.jpg">
+            <div class="container pt-1-9 pt-sm-6 pt-md-0 mt-n1-9">
+                <div class="row align-items-center position-relative z-index-1 justify-content-center">
+                    <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7 text-center py-5">
+                        <span class="alt-font" style="letter-spacing:10px;">業務領域</span>
+                        <h1 class="text-white" style="letter-spacing:5px;">Business Areas</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="section-heading">
+                    <span class="alt-font" style="letter-spacing:10px;">業務領域</span>
+                    <h2>Business Areas</h2>
+                </div>
+                <div class="row mt-n1-9">
+                    <div class="col-md-6 col-lg-4 mt-1-9" th:each="svc : ${services}">
+                        <div class="card border-0 rounded-0 bg-transparent h-100">
+                            <div class="card-body text-center">
+                                <div class="mb-4">
+                                    <i th:class="${svc.get('icon') != null ? svc.get('icon') : 'fas fa-gavel'}" style="font-size:2.5rem;color:#b5953e;"></i>
+                                </div>
+                                <h4 class="h5" style="font-size:0.9rem;color:#000;" th:text="${svc.get('name_en')}">English Name</h4>
+                                <h5 class="mt-1" th:text="${svc.get('name')}">中文名稱</h5>
+                                <p class="mt-2" th:text="${svc.get('description') != null ? #strings.abbreviate(svc.get('description'), 120) : ''}">描述</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{fragments/layout :: footer}"></footer>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
