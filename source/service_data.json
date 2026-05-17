@@ -1,0 +1,62 @@
+[
+  {
+    "name": "各類訴訟",
+    "name_en": "Litigation",
+    "icon": "",
+    "description": "各類訴訟"
+  },
+  {
+    "name": "預防諮詢",
+    "name_en": "Preventive Counseling",
+    "icon": "",
+    "description": "預防諮詢"
+  },
+  {
+    "name": "調解談判",
+    "name_en": "Mediation Negotiation",
+    "icon": "",
+    "description": "調解談判"
+  },
+  {
+    "name": "非訟強執",
+    "name_en": "Compulsory Enforcement",
+    "icon": "",
+    "description": "非訟強執"
+  },
+  {
+    "name": "債務清理",
+    "name_en": "Debt Settlement",
+    "icon": "",
+    "description": "債務清理"
+  },
+  {
+    "name": "法律顧問",
+    "name_en": "Legal Advisor",
+    "icon": "",
+    "description": "法律顧問"
+  },
+  {
+    "name": "撰狀擬約",
+    "name_en": "Writing Appointment",
+    "icon": "",
+    "description": "撰狀擬約"
+  },
+  {
+    "name": "遺囑見證",
+    "name_en": "Will Witness",
+    "icon": "",
+    "description": "遺囑見證"
+  },
+  {
+    "name": "檢警陪偵",
+    "name_en": "Prosecutors And Police Officers",
+    "icon": "",
+    "description": "檢警陪偵"
+  },
+  {
+    "name": "羈押律見",
+    "name_en": "Detention Law",
+    "icon": "",
+    "description": "羈押律見"
+  }
+]
