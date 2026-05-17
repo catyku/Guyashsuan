@@ -60,7 +60,7 @@ public class SecurityConfig {
                 // 前台頁面（Thymeleaf 路由）
                 .requestMatchers("/", "/attorney", "/attorney/*", "/service", "/case", "/case/*", "/share", "/share/*", "/about", "/consultation", "/404").permitAll()
                 // 靜態資源
-                .requestMatchers("/admin", "/admin/", "/admin/index.html", "/admin/assets/**").permitAll()
+                .requestMatchers("/admin", "/admin/", "/admin/login.html", "/admin/index.html", "/admin/assets/**").permitAll()
                 .requestMatchers("/*.html", "/assets/**", "/uploads/**", "/css/**", "/js/**", "/img/**", "/fonts/**", "/search/**", "/favicon.ico", "/apple-touch-icon*.png").permitAll()
                 .requestMatchers("/api/dev/**").permitAll()
                 .anyRequest().authenticated()
