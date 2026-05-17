@@ -125,10 +125,10 @@ public class SecurityConfig {
             .headers(headers -> headers
                 .contentSecurityPolicy(csp -> csp.policyDirectives(
                     "default-src 'self'; " +
-                    "script-src 'self' 'unsafe-inline'; " +
+                    "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; " +
                     "style-src 'self' 'unsafe-inline'; " +
                     "img-src 'self' data: blob:; " +
-                    "connect-src 'self'; " +
+                    "connect-src 'self' https://static.cloudflareinsights.com https://cloudflareinsights.com; " +
                     "font-src 'self' data:; " +
                     "object-src 'none'; " +
                     "frame-ancestors 'none'"
