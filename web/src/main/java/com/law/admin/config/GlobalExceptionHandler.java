@@ -2,6 +2,8 @@ package com.law.admin.config;
 
 import com.law.admin.model.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.tomcat.util.http.fileupload.impl.IOFileUploadException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -10,11 +12,22 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.multipart.MultipartException;
 
 import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    /**
+     * 處理 multipart 請求解析失敗（例如客戶端中斷連線、Cloudflare 截斷請求）
+     * 這類錯誤通常是客戶端問題，不應回傳 500
+     */
+    @ExceptionHandler({MultipartException.class, IOFileUploadException.class})
+    public ResponseEntity<ErrorResponse> handleMultipartException(Exception ex, HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(new ErrorResponse("BAD_REQUEST", "請求資料不完整，請重新嘗試"));
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {

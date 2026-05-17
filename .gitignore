@@ -1,0 +1,9 @@
+# Build artifacts
+admin/target/
+admin/.env
+
+# Node modules
+admin/UI/node_modules/
+
+# Logs
+admin/logs/
