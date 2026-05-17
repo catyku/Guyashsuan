@@ -4,39 +4,39 @@
     <div class="menu-container">
       <div class="menu-logo">後台選單</div>
       <el-menu :default-active="activeMenu" router @select="$emit('update:open', false)">
-        <el-menu-item :index="basePath + 'index.html'">
+        <el-menu-item index="/index.html">
           <IconHome :size="18" />
           <span>首頁概覽</span>
         </el-menu-item>
-        <el-menu-item :index="basePath + 'attorney.html'">
+        <el-menu-item index="/attorney.html">
           <IconGavel :size="18" />
           <span>律師維護</span>
         </el-menu-item>
-        <el-menu-item :index="basePath + 'service.html'">
+        <el-menu-item index="/service.html">
           <IconBriefcase :size="18" />
           <span>業務領域</span>
         </el-menu-item>
-        <el-menu-item :index="basePath + 'case.html'">
+        <el-menu-item index="/case.html">
           <IconScale :size="18" />
           <span>案件實績</span>
         </el-menu-item>
-        <el-menu-item :index="basePath + 'share.html'">
+        <el-menu-item index="/share.html">
           <IconNotes :size="18" />
           <span>情報分享</span>
         </el-menu-item>
-        <el-menu-item :index="basePath + 'consultation.html'">
+        <el-menu-item index="/consultation.html">
           <IconMessage :size="18" />
           <span>法律諮詢</span>
         </el-menu-item>
-        <el-menu-item :index="basePath + 'banner.html'">
+        <el-menu-item index="/banner.html">
           <IconPhoto :size="18" />
           <span>輪播管理</span>
         </el-menu-item>
-        <el-menu-item :index="basePath + 'site.html'">
+        <el-menu-item index="/site.html">
           <IconSettings :size="18" />
           <span>網站設定</span>
         </el-menu-item>
-        <el-menu-item :index="basePath + 'admin-user.html'">
+        <el-menu-item index="/admin-user.html">
           <IconUsers :size="18" />
           <span>管理員</span>
         </el-menu-item>
@@ -64,7 +64,6 @@ defineProps<{ open: boolean }>()
 defineEmits(['update:open'])
 
 const route = useRoute()
-const basePath = import.meta.env.BASE_URL
 const activeMenu = computed(() => {
   const path = route.path
   return path.endsWith('.html') ? path : path + '.html'

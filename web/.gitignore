@@ -28,10 +28,3 @@ deploy/.env
 
 # Uploads
 uploads-law/
-
-# Static admin assets (rebuilt by pnpm build)
-src/main/resources/static/admin/assets/
-src/main/resources/static/admin/index.html
-
-
-
