@@ -28,3 +28,5 @@ deploy/.env
 
 # Uploads
 uploads-law/
+
+src/main/resources/static/admin/
