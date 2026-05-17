@@ -1,52 +1,187 @@
 <!DOCTYPE html>
 <html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head(${item.get('title') + ' - 古雅軒法律事務所'})}"></head>
+<head th:replace="~{fragments/layout :: head('GUYAHSUAN Law Office | 情報分享')}"></head>
 <body>
     <div id="preloader"></div>
+
     <div class="main-wrapper">
-        <header th:replace="~{fragments/layout :: header}"></header>
+        <header th:replace="~{fragments/layout :: headerInner}"></header>
 
-        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" data-background="/img/share_bg.jpg">
-            <div class="container pt-1-9 pt-sm-6 pt-md-0 mt-n1-9">
-                <div class="row align-items-center position-relative z-index-1 justify-content-center">
-                    <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7 text-center py-5">
-                        <span class="alt-font" style="letter-spacing:10px;">情報分享</span>
-                        <h1 class="text-white" style="letter-spacing:5px;" th:text="${item.get('title')}">文章標題</h1>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <p class="text-muted mb-4"><i class="far fa-calendar-check me-1"></i> <span th:text="${item.get('share_date')}">日期</span></p>
-                        <div th:if="${item.get('image') != null}" class="mb-4">
-                            <img th:src="${item.get('image')}" th:alt="${item.get('title')}" style="width:100%;border-radius:5px;">
-                        </div>
-                        <div th:utext="${item.get('content') != null ? item.get('content') : ''}">
-                            文章內容
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="bg-light p-4 rounded">
-                            <h5 class="mb-3">其他文章</h5>
-                            <div th:each="s : ${shares}" class="mb-2">
-                                <a th:href="@{/share/{id}(id=${s.get('id')})}" class="d-block mb-1" th:text="${s.get('title')}">文章標題</a>
-                                <small class="text-muted" th:text="${s.get('share_date')}">日期</small>
+        <!-- PAGE TITLE
+        ================================================== -->
+        <section class="top-position1 pt-0" style="background: #e3e4e5;padding-bottom: 70px;">
+            <div class="page-title-section bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="/img/bg/bg-04.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-title">
+                                <h1>Guyahsuan  Law Office</h1>
+                                <p class="text-white fs-4 mb-0 letter-spacing-2" style="letter-spacing:7px;">/黃煦詮律師　鄭文朋律師 　陳庭浩律師</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- COUNTER
+            ================================================== -->
+            <section class="bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="/img/share_bg.jpg">
+                <div class="container">
+                    <div class="row mt-n1-9">
+                        <div class="col-sm-6 col-lg-3 mt-1-9">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb">
+                            <ul>
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/share}">Intelligence Sharing</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOG DETAIL
+        ================================================== -->
+        <section class="pt-0" style="background: #e3e4e5;padding-bottom: 100px;">
+            <div class="container">
+                <div class="section-heading" style="padding-bottom: 50px;">
+                    <span class="alt-font" style="letter-spacing:10px;">情報分享</span>
+                    <h2>Intelligence Sharing</h2>
+                </div>
+
+                <!-- Blog Details
+                ================================================== -->
+                <section class="pt-0">
+                    <div class="container">
+                        <div class="row">
+                            <!-- start blog right (sidebar) -->
+                            <div class="col-lg-4" style="width:16.5%">
+                                <div th:if="${shares != null and !shares.isEmpty()}">
+                                    <div class="bg-light p-4 rounded mb-4">
+                                        <h5 class="mb-3">其他文章</h5>
+                                        <div th:each="s : ${shares}" class="mb-2">
+                                            <a th:href="@{/share/{id}(id=${s.get('id')})}" class="d-block mb-1" th:text="${s.get('title')}">文章標題</a>
+                                            <small class="text-muted" th:text="${s.get('share_date')}">日期</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end blog right -->
+
+                            <!-- start blog left (article) -->
+                            <div class="col-lg-8 mb-2-9 mb-lg-0">
+                                <div class="pe-lg-1-9 pe-xl-2-5">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <article class="card card-style7">
+                                                <img th:if="${item.get('image') != null}" th:src="${item.get('image')}" th:alt="${item.get('title')}">
+                                                <div class="card-body p-1-6 p-sm-1-9 p-xl-2-2">
+                                                    <h2 class="h3 mb-3" style="font-size: 1.3rem;color:#000;" th:text="${item.get('title')}">文章標題</h2>
+                                                    <ul class="blog-meta">
+                                                        <li><i class="far fa-calendar-check me-2 text-primary"></i><span th:text="${item.get('share_date')}">日期</span></li>
+                                                    </ul>
+                                                    <div class="w-lg-95 mb-2-2" th:utext="${item.get('content') != null ? item.get('content') : ''}">
+                                                        文章內容
+                                                    </div>
+
+                                                    <div class="separator">
+                                                        <div class="pagination">
+                                                            <ul>
+                                                                <li><a th:href="@{/share}" class="me-3"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end blog left -->
+
+                        </div>
+                    </div>
+                </section>
+
+            </div>
         </section>
 
         <footer th:replace="~{fragments/layout :: footer}"></footer>
     </div>
+
+    <!-- SCROLL TO TOP
+    ================================================== -->
+    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+
+    <!-- all js include start -->
+
+    <!-- jQuery -->
     <script src="/js/jquery.min.js"></script>
+
+    <!-- popper js -->
     <script src="/js/popper.min.js"></script>
+
+    <!-- bootstrap -->
     <script src="/js/bootstrap.min.js"></script>
+
+    <!-- search -->
+    <script src="/search/search.js"></script>
+
+    <!-- navigation -->
+    <script src="/js/nav-menu.js"></script>
+
+    <!-- tab -->
+    <script src="/js/easy.responsive.tabs.js"></script>
+
+    <!-- owl carousel -->
+    <script src="/js/owl.carousel.js"></script>
+
+    <!-- owl carousel thumb -->
+    <script src="/js/owl.carousel.thumbs.js"></script>
+
+    <!-- jquery.counterup.min -->
+    <script src="/js/jquery.counterup.min.js"></script>
+
+    <!-- stellar js -->
+    <script src="/js/jquery.stellar.min.js"></script>
+
+    <!-- waypoints js -->
+    <script src="/js/waypoints.min.js"></script>
+
+    <!-- countdown js -->
+    <script src="/js/countdown.js"></script>
+
+    <!-- jquery.magnific-popup js -->
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+
+    <!-- lightgallery js -->
+    <script src="/js/lightgallery-all.js"></script>
+
+    <!-- mousewheel js -->
+    <script src="/js/jquery.mousewheel.min.js"></script>
+
+    <!--  clipboard js -->
+    <script src="/js/clipboard.min.js"></script>
+
+    <!--  prism js -->
+    <script src="/js/prism.js"></script>
+
+    <!-- custom scripts -->
     <script src="/js/main.js"></script>
+
+    <!-- form plugins js -->
+    <script src="/quform/js/plugins.js"></script>
+
+    <!-- form scripts js -->
+    <script src="/quform/js/scripts.js"></script>
 </body>
 </html>

@@ -4,24 +4,60 @@
 <body>
     <div id="preloader"></div>
     <div class="main-wrapper">
-        <header th:replace="~{fragments/layout :: header}"></header>
+        <header th:replace="~{fragments/layout :: headerInner}"></header>
 
-        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" data-background="/img/consultation_bg.jpg">
-            <div class="container pt-1-9 pt-sm-6 pt-md-0 mt-n1-9">
-                <div class="row align-items-center position-relative z-index-1 justify-content-center">
-                    <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7 text-center py-5">
-                        <span class="alt-font" style="letter-spacing:10px;">免費法律諮詢</span>
-                        <h1 class="text-white" style="letter-spacing:5px;">Free Legal Counsel</h1>
+        <!-- PAGE TITLE
+        ================================================== -->
+        <section class="top-position1 pt-0" style="background: #e3e4e5;">
+            <div class="page-title-section bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="/img/bg/bg-04.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-title">
+                                <h1>Guyahsuan  Law Office</h1>
+                                <p class="text-white fs-4 mb-0 letter-spacing-2" style="letter-spacing:7px;">/黃煦詮律師　鄭文朋律師　陳庭浩律師</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COUNTER
+            ================================================== -->
+            <section class="bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="/img/consultation_bg.jpg">
+                <div class="container">
+                    <div class="row mt-n1-9">
+                        <div class="col-sm-6 col-lg-3 mt-1-9">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb">
+                            <ul>
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/consultation}">Free Legal Counsel</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section>
+        <!-- ABOUTUS
+        ================================================== -->
+        <section class="about-style3" style="padding-bottom:200px;padding-top: 0px;background: #e3e4e5;">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h2 class="h1 mb-4" style="font-size:2.0rem;font-weight:300;">Service Time</h2>
+                <div class="section-heading" style="padding-bottom:60px;">
+                    <span class="alt-font" style="letter-spacing:10px;">免費法律諮詢</span>
+                    <h2>Free Legal Counsel</h2>
+                </div>
+                <div class="row align-items-center mt-n2-6">
+                    <div class="col-lg-6 order-2 order-lg-1 mt-2-6">
+                        <h2 class="h1 mb-4 font-weight-700 w-95" style="font-size: 2.0rem;font-weight:300;">Service Time</h2>
                         <p class="mb-2-2 display-28">
                             曾朝榮議員服務處：<br>
                             臺中市北屯區東山路一段156-6號<br>
@@ -29,12 +65,14 @@
                             敬請事先預約：<span th:text="${site != null ? site.get('phone') : '04-25353236'}">04-25353236</span><br><br><br>
                             三分埔松聖宮：<br>
                             臺中市北屯區松竹路二段308號<br>
-                            每月第一個週六上午09：30 ~ 11：30<br>
-                            敬請事先預約：<span th:text="${site != null ? site.get('phone') : '04-25353236'}">04-25353236</span>
+                            每週二晚上7:30-9:00<br>
+                            敬請事先預約：<span th:text="${site != null ? site.get('phone') : '04-25353236'}">04-25353236</span><br><br><br>
+                            黃國書立委服務處：<br>
+                            時間和地點都不太確定每月只有一次
                         </p>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="bg-light p-4 p-md-5 rounded">
+
+                        <!-- Online Consultation Form -->
+                        <div class="bg-light p-4 p-md-5 rounded mt-4">
                             <h3 class="mb-4" style="letter-spacing:5px;">線上法律諮詢</h3>
                             <form id="consultationForm">
                                 <div class="mb-3">
@@ -64,16 +102,59 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6 order-1 order-lg-2 ps-lg-1-9 ps-xl-0 mt-2-6">
+                        <div class="row g-3">
+                            <div class="col-12 mt-0">
+                                <div class="text-end">
+                                    <img class="border-radius-5" src="/img/consultation-01.jpg" alt="古雅軒法律事務所">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-end">
+                                    <img class="border-radius-5" src="/img/consultation-03.jpg" alt="古雅軒法律事務所">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-end">
+                                    <img class="border-radius-5" src="/img/consultation-02.jpg" alt="古雅軒法律事務所">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <footer th:replace="~{fragments/layout :: footer}"></footer>
     </div>
+
+    <!-- SCROLL TO TOP
+    ================================================== -->
+    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+
+    <!-- all js include start -->
     <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/search/search.js"></script>
+    <script src="/js/nav-menu.js"></script>
+    <script src="/js/easy.responsive.tabs.js"></script>
+    <script src="/js/owl.carousel.js"></script>
+    <script src="/js/owl.carousel.thumbs.js"></script>
+    <script src="/js/jquery.counterup.min.js"></script>
+    <script src="/js/jquery.stellar.min.js"></script>
+    <script src="/js/waypoints.min.js"></script>
+    <script src="/js/countdown.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/lightgallery-all.js"></script>
+    <script src="/js/jquery.mousewheel.min.js"></script>
+    <script src="/js/clipboard.min.js"></script>
+    <script src="/js/prism.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/quform/js/plugins.js"></script>
+    <script src="/quform/js/scripts.js"></script>
+
+    <!-- Consultation form handler -->
     <script>
         document.getElementById('consultationForm').addEventListener('submit', function(e) {
             e.preventDefault();

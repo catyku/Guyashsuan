@@ -9,17 +9,23 @@
     <meta name="keywords" content="GUYAHSUAN、古雅軒法律事務所、古雅軒、法律事務所、黃煦詮律師、台中法律事務所、專業法律服務" />
     <meta name="description" th:content="${site != null ? site.get('description') : '古雅軒法律事務所'}" />
     <link rel="shortcut icon" href="/img/logos/favicon.png" />
+    <link rel="apple-touch-icon" href="/img/logos/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/logos/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/logos/apple-touch-icon-114x114.png" />
     <link rel="stylesheet" href="/css/plugins.css" />
     <link rel="stylesheet" href="/search/search.css" />
+    <link rel="stylesheet" href="/quform/css/base.css" />
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/css/custom.css" />
 </head>
 
-<nav th:fragment="header" class="header-style2">
+<!-- Homepage header: style2 with bg-secondary top-search -->
+<header th:fragment="headerHome" class="header-style2">
     <div class="navbar-default border-bottom border-color-light-white">
+        <!-- start top search -->
         <div class="top-search bg-secondary">
             <div class="container-fluid px-lg-1-6 px-xl-2-5 px-xxl-2-9">
-                <form class="search-form" action="/share" method="GET">
+                <form class="search-form" th:action="@{/share}" method="GET">
                     <div class="input-group">
                         <span class="input-group-addon cursor-pointer">
                             <button class="search-form_submit fas fa-search text-white" type="submit"></button>
@@ -30,6 +36,7 @@
                 </form>
             </div>
         </div>
+        <!-- end top search -->
 
         <div class="container-fluid px-lg-1-6 px-xl-2-5 px-xxl-2-9">
             <div class="row align-items-center">
@@ -37,65 +44,144 @@
                     <div class="menu_area alt-font">
                         <nav class="navbar navbar-expand-lg navbar-light p-0">
                             <div class="navbar-header navbar-header-custom">
-                                <a href="/" class="navbar-brand logodefault">
+                                <!-- start logo -->
+                                <a th:href="@{/}" class="navbar-brand logodefault">
                                     <img id="logo" src="/img/logos/logo.png" alt="logo" />
                                 </a>
+                                <!-- end logo -->
                             </div>
+
                             <div class="navbar-toggler bg-primary"></div>
+
+                            <!-- start menu area -->
                             <ul class="navbar-nav ms-auto" id="nav" style="display: none;">
-                                <li><a href="/attorney" style="letter-spacing:4px;">律師等</a></li>
-                                <li><a href="/service" style="letter-spacing:4px;">業務領域</a></li>
-                                <li><a href="/case" style="letter-spacing:4px;">案件實績</a></li>
-                                <li><a href="/share" style="letter-spacing:4px;">情報分享</a></li>
-                                <li><a href="/about" style="letter-spacing:4px;">事務所概要</a></li>
+                                <li><a th:href="@{/attorney}" style="letter-spacing:4px;">律師等</a></li>
+                                <li><a th:href="@{/service}" style="letter-spacing:4px;">業務領域</a></li>
+                                <li><a th:href="@{/case}" style="letter-spacing:4px;">案件實績</a></li>
+                                <li><a th:href="@{/share}" style="letter-spacing:4px;">情報分享</a></li>
+                                <li><a th:href="@{/about}" style="letter-spacing:4px;">事務所概要</a></li>
                             </ul>
+                            <!-- end menu area -->
+
+                            <!-- start attribute navigation -->
                             <div class="attr-nav align-items-xl-center ms-xl-auto main-font">
                                 <ul>
-                                    <li class="d-none d-xl-inline-block"><a href="/consultation" class="butn md text-white">免費法律諮詢</a></li>
+                                    <li class="d-none d-xl-inline-block"><a th:href="@{/consultation}" class="butn md text-white">免費法律諮詢</a></li>
                                 </ul>
                             </div>
+                            <!-- end attribute navigation -->
                         </nav>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</nav>
+</header>
 
-<footer th:fragment="footer" class="bg-secondary">
-    <div class="container">
-        <div class="row mt-n1-9">
-            <div class="col-md-6 col-lg-3 mt-1-9">
-                <div class="footer-logo">
-                    <img src="/img/logos/logo.png" alt="logo" />
+<!-- Inner page header: style1 with bg-primary top-search -->
+<header th:fragment="headerInner" class="header-style1 menu_area-light">
+    <div class="navbar-default border-bottom border-color-light-white">
+        <!-- start top search -->
+        <div class="top-search bg-primary">
+            <div class="container-fluid px-lg-1-6 px-xl-2-5 px-xxl-2-9">
+                <form class="search-form" th:action="@{/share}" method="GET">
+                    <div class="input-group">
+                        <span class="input-group-addon cursor-pointer">
+                            <button class="search-form_submit fas fa-search text-white" type="submit"></button>
+                        </span>
+                        <input type="text" class="search-form_input form-control" name="keyword" autocomplete="off" placeholder="搜尋...">
+                        <span class="input-group-addon close-search mt-1"><i class="fas fa-times"></i></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end top search -->
+
+        <div class="container-fluid px-lg-1-6 px-xl-2-5 px-xxl-2-9">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-12">
+                    <div class="menu_area alt-font">
+                        <nav class="navbar navbar-expand-lg navbar-light p-0">
+                            <div class="navbar-header navbar-header-custom">
+                                <!-- start logo -->
+                                <a th:href="@{/}" class="navbar-brand logodefault">
+                                    <img id="logo" src="/img/logos/logo.png" alt="logo" />
+                                </a>
+                                <!-- end logo -->
+                            </div>
+
+                            <div class="navbar-toggler"></div>
+
+                            <!-- start menu area -->
+                            <ul class="navbar-nav ms-auto" id="nav" style="display: none;">
+                                <li><a th:href="@{/attorney}" style="letter-spacing:4px;">律師等</a></li>
+                                <li><a th:href="@{/service}" style="letter-spacing:4px;">業務領域</a></li>
+                                <li><a th:href="@{/case}" style="letter-spacing:4px;">案件實績</a></li>
+                                <li><a th:href="@{/share}" style="letter-spacing:4px;">情報分享</a></li>
+                                <li><a th:href="@{/about}" style="letter-spacing:4px;">事務所概要</a></li>
+                            </ul>
+                            <!-- end menu area -->
+
+                            <!-- start attribute navigation -->
+                            <div class="attr-nav align-items-xl-center ms-xl-auto main-font">
+                                <ul>
+                                    <li class="d-none d-xl-inline-block"><a th:href="@{/consultation}" class="butn md text-white">免費法律諮詢</a></li>
+                                </ul>
+                            </div>
+                            <!-- end attribute navigation -->
+                        </nav>
+                    </div>
                 </div>
-                <p class="mt-3 text-white opacity8" th:text="${site != null ? site.get('description') : ''}">古雅軒法律事務所</p>
-            </div>
-            <div class="col-md-6 col-lg-3 mt-1-9">
-                <h3 class="text-white h4 font-weight-700 mb-1-6" style="letter-spacing:4px;">快速連結</h3>
-                <ul class="footer-list">
-                    <li><a href="/about" class="text-white opacity8">事務所概要</a></li>
-                    <li><a href="/attorney" class="text-white opacity8">律師等</a></li>
-                    <li><a href="/service" class="text-white opacity8">業務領域</a></li>
-                    <li><a href="/case" class="text-white opacity8">案件實績</a></li>
-                </ul>
-            </div>
-            <div class="col-md-6 col-lg-3 mt-1-9">
-                <h3 class="text-white h4 font-weight-700 mb-1-6" style="letter-spacing:4px;">聯繫我們</h3>
-                <ul class="footer-list">
-                    <li class="text-white opacity8"><i class="fas fa-phone-alt me-2"></i><span th:text="${site != null ? site.get('phone') : ''}">04-25353236</span></li>
-                    <li class="text-white opacity8"><i class="fas fa-map-marker-alt me-2"></i><span th:text="${site != null ? site.get('address') : ''}">臺中市北屯區</span></li>
-                </ul>
-            </div>
-            <div class="col-md-6 col-lg-3 mt-1-9">
-                <h3 class="text-white h4 font-weight-700 mb-1-6" style="letter-spacing:4px;">服務時間</h3>
-                <p class="text-white opacity8" th:text="${site != null ? site.get('service_time') : ''}">週一至週五 09:00-18:00</p>
             </div>
         </div>
     </div>
-    <div class="footer-bar bg-dark">
-        <div class="container">
-            <p class="mb-0 text-white opacity6 text-center">&copy; <span>2026</span> GUYAHSUAN Law Office. All Rights Reserved.</p>
+</header>
+
+<!-- Footer: bg-secondary1 pt-0, 3-column layout -->
+<footer th:fragment="footer" class="bg-secondary1 pt-0">
+    <div class="container border-color-light-white py-2-5 py-md-6 mb-6 mb-md-8 mb-lg-10" style="border-bottom-width: 0px;">
+    </div>
+    <div class="container">
+        <div class="row mt-n2-6">
+            <!-- Column 1: Logo & Copyright -->
+            <div class="col-sm-6 col-xl-3 mt-2-6">
+                <div class="mb-1-6 mb-lg-1-9">
+                    <a th:href="@{/}" class="footer-logo"><img src="/img/logos/footer-light-logo.png" alt="logo"></a>
+                </div>
+                <p class="text-white mb-1-6 mb-lg-1-9 opacity9 display-30 display-lg-29">Copyright 2025 <span th:text="${site != null ? site.get('office_name') : 'Guyahsuan Law Office'}">Guyahsuan Law Office</span>.<br>
+All Rights Reserved.<br>
+Design by <a href="https://origin.tw/" target="_blank">origin.DESIGN | 回原設計</a></p>
+            </div>
+
+            <!-- Column 2: Contact us -->
+            <div class="col-sm-6 col-xl-3 mt-2-6">
+                <div class="ps-sm-1-6 ps-md-1-9">
+                    <h3 class="footer-title">Contact us</h3>
+                    <ul class="contact-list">
+                        <li><span class="fas fa-map-marker-alt pe-3 text-white"></span><span th:text="${site != null ? site.get('address') : '台中市潭子區中山路一段1巷58號'}">台中市潭子區中山路一段1巷58號</span></li>
+                        <li><span class="fa fa-phone-alt pe-3 text-white"></span><span th:text="${site != null ? site.get('phone') : 'TEL：04-25353236'}">TEL：04-25353236</span></li>
+                        <li><span class="fas fa-globe pe-3 text-white"></span><a href="https://www.guyahs.com/">www.guyahs.com</a></li>
+                        <li><span class="fa fa-envelope pe-3 text-white"></span><a href="mailto:guyahsuan@gmail.com">guyahsuan@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Column 3: Site Map -->
+            <div class="col-sm-6 col-xl-3 mt-2-6">
+                <div class="ps-xl-1-9">
+                    <h3 class="footer-title">Site Map</h3>
+                    <ul class="footer-list-style1">
+                        <li><a th:href="@{/attorney}">Attorneys, etc.</a></li>
+                        <li><a th:href="@{/service}">Business Areas</a></li>
+                        <li><a th:href="@{/case}">Sucessful Case</a></li>
+                        <li><a th:href="@{/share}">Intelligence Sharing</a></li>
+                        <li><a th:href="@{/about}">Office Introduction</a></li>
+                        <li><a th:href="@{/consultation}">Free Legal Counsel</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="footer-bar">
     </div>
 </footer>
