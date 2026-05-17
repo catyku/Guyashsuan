@@ -33,6 +33,5 @@ uploads-law/
 src/main/resources/static/admin/assets/
 src/main/resources/static/admin/index.html
 
-# TinyMCE local copies
-src/main/resources/static/tinymce/
-src/main/resources/static/admin/tinymce/
+
+
