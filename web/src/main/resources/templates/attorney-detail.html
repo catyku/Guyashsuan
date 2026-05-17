@@ -48,7 +48,7 @@
                         <div class="breadcrumb">
                             <ul>
                                 <li><a th:href="@{/}">Home</a></li>
-                                <li><a th:href="@{/attorney}">Attorneys, etc.</a></li>
+                                <li><a th:href="@{/attorney.html}">Attorneys, etc.</a></li>
                             </ul>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                     <div class="container">
                         <div class="row mt-n1-9">
                             <div class="col-sm-6 col-lg-4 mt-1-9" th:each="item : ${attorneys}">
-                                <a th:href="@{/attorney/{id}(id=${item['id']})}" class="text-decoration-none">
+                                <a th:href="@{/attorney/{id}.html(id=${item['id']})}" class="text-decoration-none">
                                     <div class="card card-style6 border-radius-5 border-0" style="background-color:#e2e3e4">
                                         <div class="team-img position-relative overflow-hidden border-radius-5" th:if="${item['photo'] != null and item['photo'] != ''}">
                                             <img th:src="${item['photo']}" th:alt="${item['name']}">

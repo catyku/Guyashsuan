@@ -40,7 +40,7 @@
                         <div class="breadcrumb">
                             <ul>
                                 <li><a th:href="@{/}">Home</a></li>
-                                <li><a th:href="@{/share}">Intelligence Sharing</a></li>
+                                <li><a th:href="@{/share.html}">Intelligence Sharing</a></li>
                             </ul>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                                     <div class="bg-light p-4 rounded mb-4">
                                         <h5 class="mb-3">其他文章</h5>
                                         <div th:each="s : ${shares}" class="mb-2">
-                                            <a th:href="@{/share/{id}(id=${s.get('id')})}" class="d-block mb-1" th:text="${s.get('title')}">文章標題</a>
+                                            <a th:href="@{/share/{id}.html(id=${s.get('id')})}" class="d-block mb-1" th:text="${s.get('title')}">文章標題</a>
                                             <small class="text-muted" th:text="${s.get('share_date')}">日期</small>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                                     <div class="separator">
                                                         <div class="pagination">
                                                             <ul>
-                                                                <li><a th:href="@{/share}" class="me-3"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+                                                                <li><a th:href="@{/share.html}" class="me-3"><i class="fas fa-long-arrow-alt-left"></i></a></li>
                                                             </ul>
                                                         </div>
                                                     </div>

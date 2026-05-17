@@ -57,11 +57,13 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/login", "/api/auth/csrf", "/api/captcha/**", "/api/consultation/public/**").permitAll()
-                // 前台頁面（Thymeleaf 路由）
-                .requestMatchers("/", "/attorney", "/attorney/*", "/service", "/case", "/case/*", "/share", "/share/*", "/about", "/consultation", "/404").permitAll()
+                // 前台頁面（Thymeleaf 路由，.html 後綴）
+                .requestMatchers("/", "/index.html", "/attorney.html", "/attorney/*.html", "/service.html", "/case.html", "/case/*.html", "/share.html", "/share/*.html", "/about.html", "/consultation.html", "/404.html").permitAll()
+                // 舊路徑重導向（無 .html 後綴）
+                .requestMatchers("/attorney", "/attorney/*", "/service", "/case", "/case/*", "/share", "/share/*", "/about", "/consultation", "/404").permitAll()
                 // 靜態資源
                 .requestMatchers("/admin", "/admin/", "/admin/*.html", "/admin/assets/**").permitAll()
-                .requestMatchers("/*.html", "/assets/**", "/uploads/**", "/css/**", "/js/**", "/img/**", "/fonts/**", "/search/**", "/favicon.ico", "/apple-touch-icon*.png").permitAll()
+                .requestMatchers("/assets/**", "/uploads/**", "/css/**", "/js/**", "/img/**", "/fonts/**", "/search/**", "/favicon.ico", "/apple-touch-icon*.png").permitAll()
                 .requestMatchers("/api/dev/**").permitAll()
                 .anyRequest().authenticated()
             )

@@ -48,7 +48,7 @@
                         <div class="breadcrumb">
                             <ul>
                                 <li><a th:href="@{/}">Home</a></li>
-                                <li><a th:href="@{/case}">Sucessful Case</a></li>
+                                <li><a th:href="@{/case.html}">Sucessful Case</a></li>
                             </ul>
                         </div>
                     </div>
@@ -77,9 +77,9 @@
                                 <ul class="list-unstyled mb-3">
                                     <li class="d-inline-block me-3"><i class="far fa-calendar-check me-1 text-primary"></i> <span th:text="${item.get('case_date')}">日期</span></li>
                                 </ul>
-                                <h3 class="mb-3 h4"><a th:href="@{/case/{id}(id=${item.get('id')})}" th:text="${item.get('title')}">標題</a></h3>
+                                <h3 class="mb-3 h4"><a th:href="@{/case/{id}.html(id=${item.get('id')})}" th:text="${item.get('title')}">標題</a></h3>
                                 <p th:text="${item.get('summary') != null ? item.get('summary') : ''}">描述</p>
-                                <a th:href="@{/case/{id}(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                                <a th:href="@{/case/{id}.html(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
                             </div>
                         </article>
                     </div>

@@ -11,6 +11,7 @@ import java.util.Map;
 
 /**
  * 前台網頁控制器 — 使用 Thymeleaf 動態渲染
+ * 所有前台路由統一使用 .html 後綴（SEO 友善）
  */
 @Controller
 public class WebController {
@@ -22,7 +23,7 @@ public class WebController {
     }
 
     /** 首頁 */
-    @GetMapping("/")
+    @GetMapping({"/", "/index.html"})
     public String index(Model model) {
         // 輪播
         List<Map<String, Object>> banners = jdbc.queryForList(
@@ -51,7 +52,7 @@ public class WebController {
     }
 
     /** 律師列表 */
-    @GetMapping("/attorney")
+    @GetMapping("/attorney.html")
     public String attorney(Model model) {
         List<Map<String, Object>> attorneys = jdbc.queryForList(
                 "SELECT id, name, title, photo, specialty, education, experience, description FROM lw_attorney WHERE is_show = 'Y' ORDER BY sort_order ASC");
@@ -61,12 +62,12 @@ public class WebController {
     }
 
     /** 律師詳細 */
-    @GetMapping("/attorney/{id}")
+    @GetMapping("/attorney/{id}.html")
     public String attorneyDetail(@PathVariable Integer id, Model model) {
         List<Map<String, Object>> rows = jdbc.queryForList(
                 "SELECT id, name, title, photo, specialty, education, experience, description FROM lw_attorney WHERE id = ? AND is_show = 'Y'", id);
         if (rows.isEmpty()) {
-            return "redirect:/attorney";
+            return "redirect:/attorney.html";
         }
         model.addAttribute("attorney", rows.get(0));
         List<Map<String, Object>> all = jdbc.queryForList(
@@ -77,7 +78,7 @@ public class WebController {
     }
 
     /** 業務領域 */
-    @GetMapping("/service")
+    @GetMapping("/service.html")
     public String service(Model model) {
         List<Map<String, Object>> services = jdbc.queryForList(
                 "SELECT id, name, name_en, icon, description FROM lw_service WHERE is_show = 'Y' ORDER BY sort_order ASC");
@@ -87,7 +88,7 @@ public class WebController {
     }
 
     /** 案件實績列表 */
-    @GetMapping("/case")
+    @GetMapping("/case.html")
     public String caseList(Model model) {
         List<Map<String, Object>> cases = jdbc.queryForList(
                 "SELECT id, category, title, content, case_date, image FROM lw_case WHERE is_show = 'Y' ORDER BY id DESC");
@@ -98,12 +99,12 @@ public class WebController {
     }
 
     /** 案件實績詳細 */
-    @GetMapping("/case/{id}")
+    @GetMapping("/case/{id}.html")
     public String caseDetail(@PathVariable Integer id, Model model) {
         List<Map<String, Object>> rows = jdbc.queryForList(
                 "SELECT id, category, title, content, case_date, image FROM lw_case WHERE id = ? AND is_show = 'Y'", id);
         if (rows.isEmpty()) {
-            return "redirect:/case";
+            return "redirect:/case.html";
         }
         model.addAttribute("item", rows.get(0));
         List<Map<String, Object>> all = jdbc.queryForList(
@@ -114,7 +115,7 @@ public class WebController {
     }
 
     /** 情報分享列表 */
-    @GetMapping("/share")
+    @GetMapping("/share.html")
     public String shareList(Model model) {
         List<Map<String, Object>> shares = jdbc.queryForList(
                 "SELECT id, title, content, share_date, image FROM lw_share WHERE is_show = 'Y' ORDER BY id DESC");
@@ -125,12 +126,12 @@ public class WebController {
     }
 
     /** 情報分享詳細 */
-    @GetMapping("/share/{id}")
+    @GetMapping("/share/{id}.html")
     public String shareDetail(@PathVariable Integer id, Model model) {
         List<Map<String, Object>> rows = jdbc.queryForList(
                 "SELECT id, title, content, share_date, image FROM lw_share WHERE id = ? AND is_show = 'Y'", id);
         if (rows.isEmpty()) {
-            return "redirect:/share";
+            return "redirect:/share.html";
         }
         model.addAttribute("item", rows.get(0));
         List<Map<String, Object>> all = jdbc.queryForList(
@@ -141,7 +142,7 @@ public class WebController {
     }
 
     /** 事務所概要 */
-    @GetMapping("/about")
+    @GetMapping("/about.html")
     public String about(Model model) {
         List<Map<String, Object>> attorneys = jdbc.queryForList(
                 "SELECT id, name, title, photo, specialty FROM lw_attorney WHERE is_show = 'Y' ORDER BY sort_order ASC");
@@ -151,17 +152,45 @@ public class WebController {
     }
 
     /** 免費法律諮詢 */
-    @GetMapping("/consultation")
+    @GetMapping("/consultation.html")
     public String consultation(Model model) {
         loadSiteSettings(model);
         return "consultation";
     }
 
     /** 404 */
-    @GetMapping("/404")
+    @GetMapping("/404.html")
     public String notFound() {
         return "404";
     }
+
+    /** 舊路徑重導向（無 .html 後綴 → 有 .html 後綴） */
+    @GetMapping("/attorney")
+    public String attorneyRedirect() { return "redirect:/attorney.html"; }
+
+    @GetMapping("/service")
+    public String serviceRedirect() { return "redirect:/service.html"; }
+
+    @GetMapping("/case")
+    public String caseRedirect() { return "redirect:/case.html"; }
+
+    @GetMapping("/share")
+    public String shareRedirect() { return "redirect:/share.html"; }
+
+    @GetMapping("/about")
+    public String aboutRedirect() { return "redirect:/about.html"; }
+
+    @GetMapping("/consultation")
+    public String consultationRedirect() { return "redirect:/consultation.html"; }
+
+    @GetMapping("/attorney/{id}")
+    public String attorneyDetailRedirect(@PathVariable Integer id) { return "redirect:/attorney/" + id + ".html"; }
+
+    @GetMapping("/case/{id}")
+    public String caseDetailRedirect(@PathVariable Integer id) { return "redirect:/case/" + id + ".html"; }
+
+    @GetMapping("/share/{id}")
+    public String shareDetailRedirect(@PathVariable Integer id) { return "redirect:/share/" + id + ".html"; }
 
     /** 載入網站基本設定 */
     private void loadSiteSettings(Model model) {

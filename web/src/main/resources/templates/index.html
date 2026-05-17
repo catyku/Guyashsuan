@@ -16,7 +16,7 @@
                         <span class="text-primary text-uppercase small letter-spacing-4 d-block mb-3 font-weight-700" style="letter-spacing:7px;color:#fff !important;" th:text="${banners != null and !banners.isEmpty() and banners.get(0).get('subtitle') != null ? banners.get(0).get('subtitle') : (site != null and site.get('office_name') != null ? site.get('office_name') : '/黃煦詮律師　鄭文朋律師　陳庭浩律師')}">/黃煦詮律師　鄭文朋律師　陳庭浩律師</span>
                         <h1 class="display-13 display-sm-10 display-md-6 display-lg-4 display-xl-3 mb-4 text-white" style="letter-spacing:5px;color:#fff;" th:text="${banners != null and !banners.isEmpty() and banners.get(0).get('title') != null ? banners.get(0).get('title') : 'GUYAHSUAN'}">GUYAHSUAN <br>Law Office</h1>
                         <p class="w-lg-80 text-white mx-auto lead font-weight-500 mb-2-2" style="letter-spacing:5px;color:#fff;" th:text="${site != null and site.get('description') != null ? site.get('description') : '鉅細靡遺蒐羅全臺各法院裁判，輔以學說見解發展，以與社會脈動相結合的法律詮釋，大數據分析提出符合當事人最佳利益的見解。'}">鉅細靡遺蒐羅全臺各法院裁判，輔以學說見解發展，以與社會脈動相結合的法律詮釋，大數據分析提出符合當事人最佳利益的見解。</p>
-                        <a th:href="${banners != null and !banners.isEmpty() and banners.get(0).get('link_url') != null ? banners.get(0).get('link_url') : '/about'}" class="butn radius white">OFFICE INTRODUCTION</a>
+                        <a th:href="${banners != null and !banners.isEmpty() and banners.get(0).get('link_url') != null ? banners.get(0).get('link_url') : '/about.html'}" class="butn radius white">OFFICE INTRODUCTION</a>
                     </div>
                 </div>
             </div>
@@ -42,9 +42,9 @@
                                 <ul class="list-unstyled mb-3">
                                     <li class="d-inline-block me-3"><i class="far fa-calendar-check me-1 text-primary"></i> <span th:text="${item.get('case_date')}">2023.01.01</span></li>
                                 </ul>
-                                <h3 class="mb-3 h4"><a th:href="@{/case/{id}(id=${item.get('id')})}" th:text="${item.get('title')}">案件標題</a></h3>
+                                <h3 class="mb-3 h4"><a th:href="@{/case/{id}.html(id=${item.get('id')})}" th:text="${item.get('title')}">案件標題</a></h3>
                                 <p th:text="${item.get('content') != null ? #strings.abbreviate(item.get('content'), 80) : ''}">案件描述...</p>
-                                <a th:href="@{/case/{id}(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                                <a th:href="@{/case/{id}.html(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
                             </div>
                         </article>
                     </div>
@@ -195,8 +195,8 @@
                         <div class="card card-style1">
                             <div class="card-body">
                                 <p class="mb-3 w-95 mx-auto" th:text="${item.get('share_date')}">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a th:href="@{/share/{id}(id=${item.get('id')})}" th:text="${item.get('title')}">文章標題</a></h3>
-                                <a th:href="@{/share/{id}(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                                <h3 class="mb-3 h4"><a th:href="@{/share/{id}.html(id=${item.get('id')})}" th:text="${item.get('title')}">文章標題</a></h3>
+                                <a th:href="@{/share/{id}.html(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
                             </div>
                         </div>
                     </div>

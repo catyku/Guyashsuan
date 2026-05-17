@@ -48,7 +48,7 @@
                         <div class="breadcrumb">
                             <ul>
                                 <li><a th:href="@{/}">Home</a></li>
-                                <li><a th:href="@{/share}">Intelligence Sharing</a></li>
+                                <li><a th:href="@{/share.html}">Intelligence Sharing</a></li>
                             </ul>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                         <div class="card card-style1">
                             <div class="card-body">
                                 <p class="mb-3 w-95 mx-auto" th:text="${item.get('share_date')}">日期</p>
-                                <h3 class="mb-3 h4"><a th:href="@{/share/{id}(id=${item.get('id')})}" th:text="${item.get('title')}">標題</a></h3>
-                                <a th:href="@{/share/{id}(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                                <h3 class="mb-3 h4"><a th:href="@{/share/{id}.html(id=${item.get('id')})}" th:text="${item.get('title')}">標題</a></h3>
+                                <a th:href="@{/share/{id}.html(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
                             </div>
                         </div>
                     </div>

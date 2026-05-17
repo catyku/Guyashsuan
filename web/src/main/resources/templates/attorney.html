@@ -48,7 +48,7 @@
                         <div class="breadcrumb">
                             <ul>
                                 <li><a th:href="@{/}">Home</a></li>
-                                <li><a th:href="@{/attorney}">Attorneys, etc.</a></li>
+                                <li><a th:href="@{/attorney.html}">Attorneys, etc.</a></li>
                             </ul>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                                         <img th:src="${item['photo']}" th:alt="${item['name']}">
                                     </div>
                                     <div class="card-body">
-                                        <h4><a th:href="@{/attorney/{id}(id=${item['id']})}" th:text="${item['name']}">律師姓名</a></h4>
+                                        <h4><a th:href="@{/attorney/{id}.html(id=${item['id']})}" th:text="${item['name']}">律師姓名</a></h4>
                                         <span class="text-primary" th:text="${item['title']}">職稱</span>
                                     </div>
                                 </div>
