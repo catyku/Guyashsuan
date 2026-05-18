@@ -15,7 +15,7 @@
 <!-- PAGE TITLE
         ================================================== -->
         <section class="top-position1 pt-0" style="background: #e3e4e5;padding-bottom: 70px;">
-            <div class="page-title-section bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="img/bg/bg-04.jpg">
+            <div class="page-title-section bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="/img/bg/bg-04.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -30,7 +30,7 @@
             </div>
 			        <!-- COUNTER
         ================================================== -->
-        <section class="bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="img/share_bg.jpg">
+        <section class="bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="/img/share_bg.jpg">
             <div class="container">
                 <div class="row mt-n1-9">
                     <div class="col-sm-6 col-lg-3 mt-1-9">
@@ -47,8 +47,8 @@
                     <div class="col-lg-12">
                         <div class="breadcrumb">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="share.html">Intelligence Sharing</a></li>
+                                <li><a href="/index.html">Home</a></li>
+                                <li><a href="/share.html">Intelligence Sharing</a></li>
                             </ul>
                         </div>
                     </div>
@@ -56,115 +56,86 @@
             </div>
         </section>
 
-        <!-- attorney
+        <!-- SHARE LIST
         ================================================== -->
-        <section class="pt-0"style="background: #e3e4e5;padding-bottom: 100px;">
+        <section class="pt-0" style="background: #e3e4e5;padding-bottom: 100px;">
             <div class="container">
-                <div class="section-heading"style="padding-bottom: 50px;">
-                    <span class="alt-font"style="letter-spacing:10px;">情報分享</span>
+                <div class="section-heading" style="padding-bottom: 50px;">
+                    <span class="alt-font" style="letter-spacing:10px;">情報分享</span>
                     <h2>Intelligence Sharing</h2>
                 </div>
-                <div class="row mt-n1-9">
-                    <div class="col-md-6 col-lg-4 mt-1-9">
+
+                <!-- 無資料提示 -->
+                <div th:if="${#lists.isEmpty(shares)}" class="text-center py-5">
+                    <p class="text-muted">目前尚無情報分享資料。</p>
+                </div>
+
+                <div class="row mt-n1-9" th:unless="${#lists.isEmpty(shares)}">
+                    <div class="col-md-6 col-lg-4 mt-1-9" th:each="share : ${shares}">
                         <div class="card card-style1">
                             <div class="card-body">
-								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
-                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style1">
-                            <div class="card-body">
-								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
-                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style1">
-                            <div class="card-body">
-								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
-                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style1">
-                            <div class="card-body">
-								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
-                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style1">
-                            <div class="card-body">
-								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
-                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style1">
-                            <div class="card-body">
-								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
-                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style1">
-                            <div class="card-body">
-								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
-                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style1">
-                            <div class="card-body">
-								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
-                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4 mt-1-9">
-                        <div class="card card-style1">
-                            <div class="card-body">
-								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
-                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                                <p class="mb-3 w-95 mx-auto" th:text="${share.share_date}"></p>
+                                <h3 class="mb-3 h4">
+                                    <a th:href="@{/share/{id}.html(id=${share.id})}" th:text="${share.title}"></a>
+                                </h3>
+                                <p th:if="${share.summary != null}" th:text="${share.summary}" class="mb-3"></p>
+                                <a th:href="@{/share/{id}.html(id=${share.id})}" class="font-weight-500">
+                                    Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-				<div class="row">
+
+                <!-- 分頁 -->
+                <div class="row" th:if="${totalPages > 1}">
                     <div class="col-sm-12">
-                        <!-- start pager  -->
                         <div class="text-center mt-6 mt-lg-7">
                             <div class="pagination">
                                 <ul>
-                                    <li><a href="#!" class="me-3"><i class="fas fa-long-arrow-alt-left"></i></a></li>
-                                    <li class="active"><a href="#!" class="me-2">1</a></li>
-                                    <li><a href="#!" class="me-2">2</a></li>
-                                    <li><a href="#!" class="me-3">3</a></li>
-                                    <li><a href="#!"><i class="fas fa-long-arrow-alt-right"></i></a></li>
+                                    <!-- 上一頁 -->
+                                    <li th:if="${currentPage > 1}">
+                                        <a th:href="@{/share.html(page=${currentPage - 1})}" class="me-3">
+                                            <i class="fas fa-long-arrow-alt-left"></i>
+                                        </a>
+                                    </li>
+                                    <li th:unless="${currentPage > 1}">
+                                        <a href="#!" class="me-3 disabled" style="opacity: 0.5; cursor: not-allowed;">
+                                            <i class="fas fa-long-arrow-alt-left"></i>
+                                        </a>
+                                    </li>
+
+                                    <!-- 頁碼 -->
+                                    <th:block th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                        <li th:if="${i <= 3 or i > totalPages - 3 or (i >= currentPage - 1 and i <= currentPage + 1)}" 
+                                            th:classappend="${i == currentPage} ? 'active' : ''">
+                                            <a th:href="@{/share.html(page=${i})}" 
+                                               th:text="${i}" 
+                                               class="me-2">1</a>
+                                        </li>
+                                        <li th:if="${(i == 4 and currentPage > 5) or (i == totalPages - 3 and currentPage < totalPages - 4)}" 
+                                            class="me-2">
+                                            <span>...</span>
+                                        </li>
+                                    </th:block>
+
+                                    <!-- 下一頁 -->
+                                    <li th:if="${currentPage < totalPages}">
+                                        <a th:href="@{/share.html(page=${currentPage + 1})}">
+                                            <i class="fas fa-long-arrow-alt-right"></i>
+                                        </a>
+                                    </li>
+                                    <li th:unless="${currentPage < totalPages}">
+                                        <a href="#!" class="disabled" style="opacity: 0.5; cursor: not-allowed;">
+                                            <i class="fas fa-long-arrow-alt-right"></i>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-                        <!-- end pager -->
                     </div>
                 </div>
-				
+
             </div>
         </section>
 

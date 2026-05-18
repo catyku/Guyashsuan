@@ -13,6 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 @RestController
@@ -93,11 +97,19 @@ public class ShareController {
 
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody ShareRequest req, Authentication auth) {
+        String normalizedShareDate;
+        try {
+            normalizedShareDate = normalizeDateForSql(req.getShareDate());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("code", "INVALID_DATE", "msg", e.getMessage()));
+        }
+        String normalizedImagePath = normalizeImagePathForPublic(req.getImage());
+
         jdbc.update(
                 "INSERT INTO lw_share (title, content, share_date, image, is_show, updid, inptime) " +
                         "VALUES (?,?,?,?,?,?,NOW())",
-                req.getTitle(), req.getContent(), req.getShareDate(),
-                req.getImage(), req.getIsShow() != null ? req.getIsShow() : "Y", auth.getName());
+                req.getTitle(), req.getContent(), normalizedShareDate,
+                normalizedImagePath, req.getIsShow() != null ? req.getIsShow() : "Y", auth.getName());
 
         return ResponseEntity.ok(Map.of("code", "OK", "msg", "新增成功"));
     }
@@ -109,14 +121,23 @@ public class ShareController {
             return ResponseEntity.status(404).body(Map.of("code", "NOT_FOUND", "msg", "文章不存在"));
         }
 
+        String normalizedShareDate = null;
+        if (req.getShareDate() != null) {
+            try {
+                normalizedShareDate = normalizeDateForSql(req.getShareDate());
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body(Map.of("code", "INVALID_DATE", "msg", e.getMessage()));
+            }
+        }
+
         StringBuilder sql = new StringBuilder("UPDATE lw_share SET updid=?, updtime=NOW()");
         List<Object> params = new ArrayList<>();
         params.add(auth.getName());
 
         if (req.getTitle() != null) { sql.append(", title=?"); params.add(req.getTitle()); }
         if (req.getContent() != null) { sql.append(", content=?"); params.add(req.getContent()); }
-        if (req.getShareDate() != null) { sql.append(", share_date=?"); params.add(req.getShareDate()); }
-        if (req.getImage() != null) { sql.append(", image=?"); params.add(req.getImage()); }
+        if (req.getShareDate() != null) { sql.append(", share_date=?"); params.add(normalizedShareDate); }
+        if (req.getImage() != null) { sql.append(", image=?"); params.add(normalizeImagePathForPublic(req.getImage())); }
         if (req.getIsShow() != null) { sql.append(", is_show=?"); params.add(req.getIsShow()); }
 
         sql.append(" WHERE id=?");
@@ -143,8 +164,71 @@ public class ShareController {
         }
 
         String relativePath = fileUploadService.uploadImage(file, "share", rootPath);
-        jdbc.update("UPDATE lw_share SET image = ?, updtime = NOW() WHERE id = ?", relativePath, id);
+        String publicPath = normalizeImagePathForPublic(relativePath);
+        jdbc.update("UPDATE lw_share SET image = ?, updtime = NOW() WHERE id = ?", publicPath, id);
 
-        return ResponseEntity.ok(Map.of("code", "OK", "msg", "上傳成功", "path", relativePath));
+        return ResponseEntity.ok(Map.of("code", "OK", "msg", "上傳成功", "path", publicPath));
+    }
+
+    private String normalizeDateForSql(String rawDate) {
+        if (rawDate == null || rawDate.isBlank()) {
+            return null;
+        }
+
+        String value = rawDate.trim();
+
+        // yyyy-MM-dd
+        try {
+            return LocalDate.parse(value).toString();
+        } catch (Exception ignored) {
+            // fall through
+        }
+
+        // ISO instant like 2023-02-27T16:00:00.000Z
+        try {
+            return Instant.parse(value)
+                    .atZone(ZoneId.of("Asia/Taipei"))
+                    .toLocalDate()
+                    .toString();
+        } catch (Exception ignored) {
+            // fall through
+        }
+
+        // ISO offset datetime
+        try {
+            return OffsetDateTime.parse(value)
+                    .atZoneSameInstant(ZoneId.of("Asia/Taipei"))
+                    .toLocalDate()
+                    .toString();
+        } catch (Exception ignored) {
+            // fall through
+        }
+
+        throw new IllegalArgumentException("日期格式錯誤，請使用 yyyy-MM-dd");
+    }
+
+    private String normalizeImagePathForPublic(String rawPath) {
+        if (rawPath == null || rawPath.isBlank()) {
+            return null;
+        }
+
+        String path = rawPath.trim();
+        if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("data:")) {
+            return path;
+        }
+
+        if (path.startsWith("/uploads/")) {
+            return path;
+        }
+
+        if (path.startsWith("uploads/")) {
+            return "/" + path;
+        }
+
+        if (path.startsWith("/")) {
+            return "/uploads" + path;
+        }
+
+        return "/uploads/" + path;
     }
 }

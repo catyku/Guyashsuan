@@ -1,0 +1,71 @@
+package com.law.admin.service;
+
+import com.law.admin.repository.CaseRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class CaseService {
+
+    private final CaseRepository caseRepository;
+
+    public CaseService(CaseRepository caseRepository) {
+        this.caseRepository = caseRepository;
+    }
+
+    /**
+     * 獲取分頁案件實績列表
+     */
+    public Map<String, Object> getCaseListWithPage(int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        int total = caseRepository.countVisible();
+        int totalPages = (int) Math.ceil((double) total / pageSize);
+
+        List<Map<String, Object>> cases = caseRepository.findVisibleWithPage(pageSize, offset);
+        cases.forEach(c -> c.put("summary", stripHtml((String) c.get("content"), 120)));
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("cases", cases);
+        result.put("currentPage", page);
+        result.put("totalPages", totalPages);
+        result.put("total", total);
+
+        return result;
+    }
+
+    /**
+     * 獲取最新案件實績（首頁用）
+     */
+    public List<Map<String, Object>> getTopCases(int limit) {
+        List<Map<String, Object>> cases = caseRepository.findTopVisible(limit);
+        cases.forEach(c -> c.put("summary", stripHtml((String) c.get("content"), 120)));
+        return cases;
+    }
+
+    /**
+     * 獲取案件詳情
+     */
+    public Map<String, Object> getCaseDetail(Integer id) {
+        return caseRepository.findVisibleById(id);
+    }
+
+    /**
+     * 獲取所有案件（簡化版）
+     */
+    public List<Map<String, Object>> getAllCasesSimple() {
+        return caseRepository.findAllVisibleSimple();
+    }
+
+    /**
+     * 移除 HTML 標籤並截取摘要
+     */
+    private String stripHtml(String html, int maxLen) {
+        if (html == null || html.isBlank()) return "";
+        String text = html.replaceAll("<[^>]*>", "").replaceAll("&nbsp;", " ").trim();
+        if (text.length() <= maxLen) return text;
+        return text.substring(0, maxLen) + "…";
+    }
+}

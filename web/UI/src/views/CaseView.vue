@@ -102,7 +102,10 @@ const form = ref({ category: '', title: '', content: '', caseDate: '', image: ''
 
 function getImageUrl(img: string): string {
   if (!img) return ''
-  if (img.startsWith('http') || img.startsWith('/')) return img
+  if (img.startsWith('http') || img.startsWith('data:')) return img
+  if (img.startsWith('/uploads/')) return img
+  if (img.startsWith('uploads/')) return '/' + img
+  if (img.startsWith('/')) return '/uploads' + img
   return '/uploads/' + img
 }
 
@@ -115,7 +118,8 @@ const editorConfig = {
       fieldName: 'file',
       maxFileSize: 10 * 1024 * 1024,
       customInsert(res: any, insertFn: Function) {
-        const url = res.location || ('/uploads/' + res.path)
+        const raw = res.location || res.path || ''
+        const url = getImageUrl(raw)
         insertFn(url)
       },
       headers: uploadHeaders.value,

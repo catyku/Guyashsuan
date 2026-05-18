@@ -57,8 +57,9 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/login", "/api/auth/csrf", "/api/captcha/**", "/api/consultation/public/**").permitAll()
+                .requestMatchers("/error", "/error/**").permitAll()
                 // 前台頁面（Thymeleaf 路由，.html 後綴）
-                .requestMatchers("/", "/index.html", "/attorney.html", "/attorney/*.html", "/service.html", "/case.html", "/case/*.html", "/share.html", "/share/*.html", "/about.html", "/consultation.html", "/404.html").permitAll()
+                .requestMatchers("/", "/index.html", "/attorney.html", "/attorney/*.html", "/service.html", "/case.html", "/case/*.html", "/share.html", "/share/*.html", "/about.html", "/consultation.html", "/404.html", "/500.html").permitAll()
                 // 舊路徑重導向（無 .html 後綴）
                 .requestMatchers("/attorney", "/attorney/*", "/service", "/case", "/case/*", "/share", "/share/*", "/about", "/consultation", "/404").permitAll()
                 // 靜態資源
@@ -101,7 +102,7 @@ public class SecurityConfig {
                         || requestUri.equals(req.getContextPath() + "/")
                         || requestUri.equals(req.getContextPath());
                     if (isHtmlRequest) {
-                        res.sendRedirect(req.getContextPath() + "/admin/login.html");
+                        res.sendRedirect(loginRedirectPath(req));
                     } else {
                         res.setStatus(HttpStatus.UNAUTHORIZED.value());
                         res.setContentType("application/json;charset=UTF-8");
@@ -116,7 +117,7 @@ public class SecurityConfig {
                         || requestUri.equals(req.getContextPath() + "/")
                         || requestUri.equals(req.getContextPath());
                     if (isHtmlRequest) {
-                        res.sendRedirect(req.getContextPath() + "/admin/login.html");
+                        res.sendRedirect(loginRedirectPath(req));
                     } else {
                         res.setStatus(HttpStatus.FORBIDDEN.value());
                         res.setContentType("application/json;charset=UTF-8");
@@ -143,5 +144,13 @@ public class SecurityConfig {
         http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    private String loginRedirectPath(jakarta.servlet.http.HttpServletRequest req) {
+        String contextPath = req.getContextPath();
+        if ("/".equals(contextPath)) {
+            contextPath = "";
+        }
+        return contextPath + "/admin/login.html";
     }
 }

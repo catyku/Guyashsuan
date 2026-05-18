@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - 系統忙碌中</title>
+    <style>
+        :root {
+            --bg: #f4f6f8;
+            --panel: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --accent: #0f766e;
+            --accent-hover: #115e59;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            background: radial-gradient(circle at 20% 20%, #e5f7f6 0%, var(--bg) 45%, #edf2f7 100%);
+            color: var(--text);
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .card {
+            width: min(560px, 100%);
+            background: var(--panel);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+            padding: 36px 28px;
+            text-align: center;
+        }
+
+        .code {
+            font-size: clamp(48px, 10vw, 76px);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        h1 {
+            margin: 12px 0 8px;
+            font-size: clamp(24px, 5vw, 32px);
+        }
+
+        p {
+            margin: 0 auto 20px;
+            max-width: 36ch;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-weight: 700;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+    </style>
+</head>
+<body>
+<main class="card" role="main" aria-labelledby="title">
+    <p class="code" aria-hidden="true">500</p>
+    <h1 id="title">系統暫時發生錯誤</h1>
+    <p>伺服器目前無法完成您的請求，請稍後再試，或返回首頁繼續瀏覽。</p>
+    <a class="btn" href="/index.html">回到首頁</a>
+</main>
+</body>
+</html>

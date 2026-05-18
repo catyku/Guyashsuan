@@ -23,15 +23,15 @@ export default defineConfig(({ mode }) => {
       port: 5380,
       proxy: {
         '/api': {
-          target: 'http://localhost:8092',
+          target: 'http://localhost:8091',
           changeOrigin: true,
         },
         '/captcha': {
-          target: 'http://localhost:8092',
+          target: 'http://localhost:8091',
           changeOrigin: true,
         },
         '/uploads': {
-          target: 'http://localhost:8092',
+          target: 'http://localhost:8091',
           changeOrigin: true,
         },
       },
