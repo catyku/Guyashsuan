@@ -1,0 +1,46 @@
+<!-- PAGE TITLE
+================================================== -->
+<section th:fragment="page-title" class="top-position1 pt-0" style="background: #e3e4e5;padding-bottom: 70px;">
+    <div class="page-title-section bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="img/bg/bg-04.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-title">
+                        <h1 th:text="${pageMainTitle} ?: 'Guyahsuan Law Office'">Guyahsuan Law Office</h1>
+                        <p class="text-white fs-4 mb-0 letter-spacing-2" style="letter-spacing:7px;" th:text="${pageSubtitle} ?: '/黃煦詮律師　鄭文朋律師 　陳庭浩律師'">/黃煦詮律師　鄭文朋律師 　陳庭浩律師</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Counter Section (Optional) -->
+    <th:block th:if="${showCounter}">
+        <section class="bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="img/attorney_bg.jpg">
+            <div class="container">
+                <div class="row mt-n1-9">
+                    <th:block th:replace="fragments/page-title :: counter-item"></th:block>
+                </div>
+            </div>
+        </section>
+    </th:block>
+    
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li th:if="${breadcrumb}"><a th:href="${breadcrumb.url}" th:text="${breadcrumb.text}">Page</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Counter Item Fragment (for optional use) -->
+<div th:fragment="counter-item" class="col-sm-6 col-lg-3 mt-1-9">
+    <!-- Counter content goes here -->
+</div>

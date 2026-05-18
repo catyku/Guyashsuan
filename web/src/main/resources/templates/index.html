@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('GUYAHSUAN Law Office | 古雅軒法律事務所')}"></head>
+<html lang="zh-TW" 
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{fragments/layout}">
+
+<head>
+    <title>GUYAHSUAN Law Office | 古雅軒法律事務所</title>
+</head>
+
 <body>
-    <div id="preloader"></div>
-    <div class="main-wrapper">
 
-        <!-- HEADER -->
-        <header th:replace="~{fragments/layout :: headerHome}"></header>
+<th:block layout:fragment="content">
 
-        <!-- BANNER -->
-        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" th:attr="data-background=${banners != null and !banners.isEmpty() ? banners.get(0).get('image') : '/img/banner/banner-05.jpg'}">
+<!-- BANNER
+        ================================================== -->
+        <section class="py-6 py-md-16 py-lg-20 py-xxl-22 bg-img cover-background secondary-overlay" data-overlay-dark="75" data-background="img/banner/banner-05.jpg">
             <div class="container pt-1-9 pt-sm-6 pt-md-0 mt-n1-9">
                 <div class="row align-items-center position-relative z-index-1 justify-content-center">
                     <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7 text-center py-5">
-                        <span class="text-primary text-uppercase small letter-spacing-4 d-block mb-3 font-weight-700" style="letter-spacing:7px;color:#fff !important;" th:text="${banners != null and !banners.isEmpty() and banners.get(0).get('subtitle') != null ? banners.get(0).get('subtitle') : (site != null and site.get('office_name') != null ? site.get('office_name') : '/黃煦詮律師　鄭文朋律師　陳庭浩律師')}">/黃煦詮律師　鄭文朋律師　陳庭浩律師</span>
-                        <h1 class="display-13 display-sm-10 display-md-6 display-lg-4 display-xl-3 mb-4 text-white" style="letter-spacing:5px;color:#fff;" th:text="${banners != null and !banners.isEmpty() and banners.get(0).get('title') != null ? banners.get(0).get('title') : 'GUYAHSUAN'}">GUYAHSUAN <br>Law Office</h1>
-                        <p class="w-lg-80 text-white mx-auto lead font-weight-500 mb-2-2" style="letter-spacing:5px;color:#fff;" th:text="${site != null and site.get('description') != null ? site.get('description') : '鉅細靡遺蒐羅全臺各法院裁判，輔以學說見解發展，以與社會脈動相結合的法律詮釋，大數據分析提出符合當事人最佳利益的見解。'}">鉅細靡遺蒐羅全臺各法院裁判，輔以學說見解發展，以與社會脈動相結合的法律詮釋，大數據分析提出符合當事人最佳利益的見解。</p>
-                        <a th:href="${banners != null and !banners.isEmpty() and banners.get(0).get('link_url') != null ? banners.get(0).get('link_url') : '/about.html'}" class="butn radius white">OFFICE INTRODUCTION</a>
+                        <span class="text-primary text-uppercase small letter-spacing-4 d-block mb-3 font-weight-700" style="letter-spacing:7px;color: #fff !important;
+;">/黃煦詮律師　鄭文朋律師　陳庭浩律師</span>
+                        <h1 class="display-13 display-sm-10 display-md-6 display-lg-4 display-xl-3 mb-4 text-white"style="letter-spacing:5px;color: #fff;">GUYAHSUAN <br>Law Office</h1>
+                        <p class="w-lg-80 text-white mx-auto lead font-weight-500 mb-2-2" style="letter-spacing:5px;color: #fff;">鉅細靡遺蒐羅全臺各法院裁判，輔以學說見解發展，以與社會脈動相結合的法律詮釋，
+大數據分析提出符合當事人最佳利益的見解。</p>
+                        <a href="about.html" class="butn radius white">OFFICE INTRODUCTION</a>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- BLOG / Cases Section -->
+        </section>          
+    <!-- BLOG
+        ================================================== -->
         <section>
             <div class="container">
                 <div class="section-heading">
@@ -30,21 +37,54 @@
                     <h2>Sucessful Case</h2>
                 </div>
                 <div class="row mt-n1-9">
-                    <div class="col-md-6 col-lg-4 mt-1-9" th:each="item : ${cases}">
+                    <div class="col-md-6 col-lg-4 mt-1-9">
                         <article class="card card-style3 position-relative border-0 rounded-0 bg-transparent h-100">
-                            <div class="card-img">
-                                <img th:src="${item.get('image') != null ? item.get('image') : '/img/case1.jpg'}" th:alt="${item.get('title')}">
+                            <div class="card-img"><img src="img/case1.jpg">
                                 <div class="tags">
-                                    <a style="letter-spacing:10px;" th:text="${item.get('category')}">刑事</a>
+                                    <a style="letter-spacing:10px;">刑事</a>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled mb-3">
-                                    <li class="d-inline-block me-3"><i class="far fa-calendar-check me-1 text-primary"></i> <span th:text="${item.get('case_date')}">2023.01.01</span></li>
+                                    <li class="d-inline-block me-3"><i class="far fa-calendar-check me-1 text-primary"></i> 2023.02.30</li>
                                 </ul>
-                                <h3 class="mb-3 h4"><a th:href="@{/case/{id}.html(id=${item.get('id')})}" th:text="${item.get('title')}">案件標題</a></h3>
-                                <p th:text="${item.get('content') != null ? #strings.abbreviate(item.get('content'), 80) : ''}">案件描述...</p>
-                                <a th:href="@{/case/{id}.html(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                                <h3 class="mb-3 h4"><a href="case-detailed.html">『竊盜』案件，再議成功。檢察官提起公訴</a></h3>
+                                <p>古雅軒法律事務所－距離臺中地院25分鐘－為一處遠離市中心紛擾，鄰近台鐵頭家厝站、松竹站及中.....</p>
+                                <a href="case-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mt-1-9">
+                        <article class="card card-style3 position-relative border-0 rounded-0 bg-transparent h-100">
+                            <div class="card-img"><img src="img/case1.jpg">
+                                <div class="tags">
+                                    <a style="letter-spacing:10px;">刑事</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-3">
+                                    <li class="d-inline-block me-3"><i class="far fa-calendar-check me-1 text-primary"></i > 2023.02.30</li>
+                                </ul>
+                                <h3 class="mb-3 h4"><a href="case-detailed.html">『竊盜』案件，再議成功。檢察官提起公訴</a></h3>
+                                <p>古雅軒法律事務所－距離臺中地院25分鐘－為一處遠離市中心紛擾，鄰近台鐵頭家厝站、松竹站及中.....</p>
+                                <a href="case-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mt-1-9">
+                        <article class="card card-style3 position-relative border-0 rounded-0 bg-transparent h-100">
+                            <div class="card-img"><img src="img/case1.jpg">
+                                <div class="tags">
+                                    <a style="letter-spacing:10px;">刑事</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-3">
+                                    <li class="d-inline-block me-3"><i class="far fa-calendar-check me-1 text-primary"></i> 2023.02.30</li>
+                                </ul>
+                                <h3 class="mb-3 h4"><a href="case-detailed.html">『竊盜』案件，再議成功。檢察官提起公訴</a></h3>
+                                <p>古雅軒法律事務所－距離臺中地院25分鐘－為一處遠離市中心紛擾，鄰近台鐵頭家厝站、松竹站及中.....</p>
+                                <a href="case-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
                             </div>
                         </article>
                     </div>
@@ -52,16 +92,21 @@
             </div>
         </section>
 
-        <!-- CASE STUDY / About Carousel -->
+
+        <!-- CASE STUDY
+        ================================================== -->
         <section class="py-0">
             <div class="row g-0">
                 <div class="col-xl-5">
                     <div class="bg-secondary px-4 px-sm-7 px-xl-0 pt-7 pt-lg-15 pt-xxl-18 pb-9 pb-sm-15 pb-xxl-18">
                         <div class="d-table w-xl-65 mx-auto">
                             <div class="d-table-cell align-items-center align-middle">
-                                <span class="text-white mb-3 d-block font-weight-600 text-uppercase letter-spacing-2" style="color:#fff;letter-spacing:10px;">事務所介紹</span>
-                                <h2 class="text-white mb-4" style="color:#fff;">Guyahsuan Law Office</h2>
-                                <p class="text-white mb-0 opacity9 w-lg-90" style="color:#fff;" th:text="${site != null and site.get('description') != null ? site.get('description') : '古雅軒法律事務所－距離臺中地院25分鐘－為一處遠離市中心紛擾，鄰近台鐵頭家厝站、松竹站及中捷松竹站旁交通便捷的事務所，於此您可以安心交由我們出謀劃策．'}">古雅軒法律事務所－距離臺中地院25分鐘－為一處遠離市中心紛擾，鄰近台鐵頭家厝站、松竹站及中捷松竹站旁交通便捷的事務所，於此您可以安心交由我們出謀劃策．</p>
+                                <span class="text-white mb-3 d-block font-weight-600 text-uppercase letter-spacing-2"style="color: #fff;letter-spacing:10px;">事務所介紹</span>
+                                <h2 class="text-white mb-4"style="color: #fff;">Guyahsuan Law Office</h2>
+                                <p class="text-white mb-0 opacity9 w-lg-90"style="color: #fff;">古雅軒法律事務所－距離臺中地院25分鐘－為
+一處遠離市中心紛擾，鄰近台鐵頭家厝站、松
+竹站及中捷松竹站旁交通便捷的事務所，於此
+您可以安心交由我們出謀劃策．</p>
                             </div>
                         </div>
                     </div>
@@ -71,7 +116,7 @@
                         <div class="case-study-carousel owl-carousel owl-theme">
                             <div class="project-block position-relative overflow-hidden">
                                 <div class="image position-relative">
-                                    <img class="border-radius-5" src="/img/about_1.jpg" alt="會議室">
+                                    <img class="border-radius-5" src="img/about_1.jpg" alt="會議室">
                                 </div>
                                 <div class="lower-content">
                                     <div class="count">01.</div>
@@ -89,7 +134,7 @@
                             </div>
                             <div class="project-block position-relative overflow-hidden">
                                 <div class="image position-relative">
-                                    <img class="border-radius-5" src="/img/about_2.jpg" alt="古雅軒外觀">
+                                    <img class="border-radius-5" src="img/about_2.jpg" alt="古雅軒外觀">
                                 </div>
                                 <div class="lower-content">
                                     <div class="count">02.</div>
@@ -102,12 +147,14 @@
                                         <div class="category">Traffic</div>
                                         <div class="text">交通便捷的事務所</div>
                                     </div>
-                                    <div class="link-btn"></div>
+                                    <div class="link-btn">
+                                        <div class="link-btn"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="project-block position-relative overflow-hidden">
                                 <div class="image position-relative">
-                                    <img class="border-radius-5" src="/img/about_3.jpg" alt="開會">
+                                    <img class="border-radius-5" src="img/about_3.jpg" alt="開會">
                                 </div>
                                 <div class="lower-content">
                                     <div class="count">03.</div>
@@ -120,12 +167,14 @@
                                         <div class="category">Service</div>
                                         <div class="text">提供著重效率的法律服務</div>
                                     </div>
-                                    <div class="link-btn"></div>
+                                    <div class="link-btn">
+                                       <div class="link-btn"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="project-block position-relative overflow-hidden">
                                 <div class="image position-relative">
-                                    <img class="border-radius-5" src="/img/about_4.jpg" alt="辦公室">
+                                    <img class="border-radius-5" src="img/about_4.jpg" alt="辦公室">
                                 </div>
                                 <div class="lower-content">
                                     <div class="count">04.</div>
@@ -138,12 +187,12 @@
                                         <div class="category">Office</div>
                                         <div class="text">專業的律師團隊</div>
                                     </div>
-                                    <div class="link-btn"></div>
+                                   <div class="link-btn"></div>
                                 </div>
                             </div>
                             <div class="project-block position-relative overflow-hidden">
                                 <div class="image position-relative">
-                                    <img class="border-radius-5" src="/img/about_5.jpg" alt="古雅軒大門">
+                                    <img class="border-radius-5" src="img/about_5.jpg" alt="古雅軒大門">
                                 </div>
                                 <div class="lower-content">
                                     <div class="count">05.</div>
@@ -161,7 +210,7 @@
                             </div>
                             <div class="project-block position-relative overflow-hidden">
                                 <div class="image position-relative">
-                                    <img class="border-radius-5" src="/img/about_6.jpg" alt="辦公室一偶">
+                                   <img class="border-radius-5" src="img/about_6.jpg" alt="辦公室一偶">
                                 </div>
                                 <div class="lower-content">
                                     <div class="count">06.</div>
@@ -174,7 +223,7 @@
                                         <div class="category">Office</div>
                                         <div class="text">充滿巧思的辦公空間</div>
                                     </div>
-                                    <div class="link-btn"></div>
+                                   <div class="link-btn"></div>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +232,10 @@
             </div>
         </section>
 
-        <!-- SERVICE / Share Section -->
+
+
+           <!-- SERVICE
+        ================================================== -->
         <section class="bg-light">
             <div class="container">
                 <div class="section-heading">
@@ -191,12 +243,57 @@
                     <h2>Intelligence Sharing</h2>
                 </div>
                 <div class="row mt-n1-9">
-                    <div class="col-md-6 col-lg-4 mt-1-9" th:each="item : ${shares}">
+                    <div class="col-md-6 col-lg-4 mt-1-9">
                         <div class="card card-style1">
                             <div class="card-body">
-                                <p class="mb-3 w-95 mx-auto" th:text="${item.get('share_date')}">2023.02.30</p>
-                                <h3 class="mb-3 h4"><a th:href="@{/share/{id}.html(id=${item.get('id')})}" th:text="${item.get('title')}">文章標題</a></h3>
-                                <a th:href="@{/share/{id}.html(id=${item.get('id')})}" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
+                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
+                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mt-1-9">
+                        <div class="card card-style1">
+                            <div class="card-body">
+								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
+                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
+                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mt-1-9">
+                        <div class="card card-style1">
+                            <div class="card-body">
+								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
+                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
+                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mt-1-9">
+                        <div class="card card-style1">
+                            <div class="card-body">
+								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
+                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
+                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mt-1-9">
+                        <div class="card card-style1">
+                            <div class="card-body">
+								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
+                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
+                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mt-1-9">
+                        <div class="card card-style1">
+                            <div class="card-body">
+								<p class="mb-3 w-95 mx-auto">2023.02.30</p>
+                                <h3 class="mb-3 h4"><a href="share-detailed.html">酒駕相關民刑事責任-者即符合「不能安全駕 駛」。</a></h3>
+                                <a href="share-detailed.html" class="font-weight-500">Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i></a>
                             </div>
                         </div>
                     </div>
@@ -204,72 +301,13 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
-        <footer th:replace="~{fragments/layout :: footer}"></footer>
-    </div>
 
-    <!-- start scroll to top -->
-    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
-    <!-- end scroll to top -->
 
-    <!-- all js include start -->
+        <!-- FOOTER
+        ================================================== -->
 
-    <!-- jQuery -->
-    <script src="/js/jquery.min.js"></script>
-
-    <!-- popper js -->
-    <script src="/js/popper.min.js"></script>
-
-    <!-- bootstrap -->
-    <script src="/js/bootstrap.min.js"></script>
-
-    <!-- search -->
-    <script src="/search/search.js"></script>
-
-    <!-- navigation -->
-    <script src="/js/nav-menu.js"></script>
-
-    <!-- tab -->
-    <script src="/js/easy.responsive.tabs.js"></script>
-
-    <!-- owl carousel -->
-    <script src="/js/owl.carousel.js"></script>
-
-    <!-- owl carousel thumb -->
-    <script src="/js/owl.carousel.thumbs.js"></script>
-
-    <!-- jquery.counterup.min -->
-    <script src="/js/jquery.counterup.min.js"></script>
-
-    <!-- stellar js -->
-    <script src="/js/jquery.stellar.min.js"></script>
-
-    <!-- waypoints js -->
-    <script src="/js/waypoints.min.js"></script>
-
-    <!-- countdown js -->
-    <script src="/js/countdown.js"></script>
-
-    <!-- jquery.magnific-popup js -->
-    <script src="/js/jquery.magnific-popup.min.js"></script>
-
-    <!-- lightgallery js -->
-    <script src="/js/lightgallery-all.js"></script>
-
-    <!-- mousewheel js -->
-    <script src="/js/jquery.mousewheel.min.js"></script>
-
-    <!-- clipboard js -->
-    <script src="/js/clipboard.min.js"></script>
-
-    <!-- custom scripts -->
-    <script src="/js/main.js"></script>
-
-    <!-- form plugins js -->
-    <script src="/quform/js/plugins.js"></script>
-
-    <!-- form scripts js -->
-    <script src="/quform/js/scripts.js"></script>
+</th:block>
 
 </body>
+
 </html>

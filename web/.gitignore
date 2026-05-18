@@ -8,6 +8,7 @@ target/
 .idea/
 *.iml
 .vscode/
+web/.vscode/
 
 # OS
 .DS_Store

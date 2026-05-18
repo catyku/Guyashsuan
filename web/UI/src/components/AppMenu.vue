@@ -8,14 +8,14 @@
           <IconHome :size="18" />
           <span>首頁概覽</span>
         </el-menu-item>
-        <el-menu-item index="/attorney.html">
+        <!--<el-menu-item index="/attorney.html">
           <IconGavel :size="18" />
           <span>律師維護</span>
         </el-menu-item>
         <el-menu-item index="/service.html">
           <IconBriefcase :size="18" />
           <span>業務領域</span>
-        </el-menu-item>
+        </el-menu-item>-->
         <el-menu-item index="/case.html">
           <IconScale :size="18" />
           <span>案件實績</span>
@@ -24,7 +24,7 @@
           <IconNotes :size="18" />
           <span>情報分享</span>
         </el-menu-item>
-        <el-menu-item index="/consultation.html">
+        <!--<el-menu-item index="/consultation.html">
           <IconMessage :size="18" />
           <span>法律諮詢</span>
         </el-menu-item>
@@ -39,7 +39,7 @@
         <el-menu-item index="/admin-user.html">
           <IconUsers :size="18" />
           <span>管理員</span>
-        </el-menu-item>
+        </el-menu-item>-->
       </el-menu>
     </div>
   </el-drawer>
@@ -50,14 +50,10 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import {
   IconHome,
-  IconGavel,
-  IconBriefcase,
+
   IconScale,
   IconNotes,
-  IconMessage,
-  IconPhoto,
-  IconSettings,
-  IconUsers,
+
 } from '@tabler/icons-vue'
 
 defineProps<{ open: boolean }>()
