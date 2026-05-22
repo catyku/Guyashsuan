@@ -58,10 +58,10 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/login", "/api/auth/csrf", "/api/captcha/**", "/api/consultation/public/**").permitAll()
                 .requestMatchers("/error", "/error/**").permitAll()
-                // 前台頁面（Thymeleaf 路由，.html 後綴）
-                .requestMatchers("/", "/index.html", "/attorney.html", "/attorney/*.html", "/service.html", "/case.html", "/case/*.html", "/share.html", "/share/*.html", "/about.html", "/consultation.html", "/404.html", "/500.html").permitAll()
+                // 前台所有 .html 頁面（含動態路由與不存在的路徑，確保 404 正常顯示）
+                .requestMatchers("/", "/index.html", "/attorney.html", "/attorney/*.html", "/service.html", "/case.html", "/case/*.html", "/share.html", "/share/*.html", "/about.html", "/consultation.html", "/404.html", "/500.html", "/*.html").permitAll()
                 // 舊路徑重導向（無 .html 後綴）
-                .requestMatchers("/attorney", "/attorney/*", "/service", "/case", "/case/*", "/share", "/share/*", "/about", "/consultation", "/404").permitAll()
+                .requestMatchers("/attorney", "/attorney/*", "/service", "/case", "/case/*", "/share", "/share/*", "/about", "/consultation").permitAll()
                 // 靜態資源
                 .requestMatchers("/admin", "/admin/", "/admin/*.html", "/admin/assets/**").permitAll()
                 .requestMatchers("/assets/**", "/uploads/**", "/css/**", "/js/**", "/img/**", "/fonts/**", "/search/**", "/favicon.ico", "/apple-touch-icon*.png").permitAll()

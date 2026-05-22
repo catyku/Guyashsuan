@@ -28,7 +28,7 @@ public class CaseRepository {
      */
     public List<Map<String, Object>> findVisibleWithPage(int limit, int offset) {
         return jdbc.queryForList(
-                "SELECT id, category, title, content, case_date, image FROM lw_case WHERE is_show = 'Y' ORDER BY case_date DESC NULLS LAST, id DESC LIMIT ? OFFSET ?",
+                "SELECT id, category, title, content, case_date, image FROM lw_case WHERE is_show = 'Y' ORDER BY ISNULL(case_date) ASC, case_date DESC, id DESC LIMIT ? OFFSET ?",
                 limit, offset);
     }
 
@@ -37,7 +37,7 @@ public class CaseRepository {
      */
     public List<Map<String, Object>> findTopVisible(int limit) {
         return jdbc.queryForList(
-                "SELECT id, category, title, content, case_date, image FROM lw_case WHERE is_show = 'Y' ORDER BY case_date DESC NULLS LAST, id DESC LIMIT ?",
+                "SELECT id, category, title, content, case_date, image FROM lw_case WHERE is_show = 'Y' ORDER BY ISNULL(case_date) ASC, case_date DESC, id DESC LIMIT ?",
                 limit);
     }
 
@@ -55,6 +55,6 @@ public class CaseRepository {
      */
     public List<Map<String, Object>> findAllVisibleSimple() {
         return jdbc.queryForList(
-                "SELECT id, category, title, case_date FROM lw_case WHERE is_show = 'Y' ORDER BY case_date DESC NULLS LAST, id DESC");
+                "SELECT id, category, title, case_date FROM lw_case WHERE is_show = 'Y' ORDER BY ISNULL(case_date) ASC, case_date DESC, id DESC");
     }
 }

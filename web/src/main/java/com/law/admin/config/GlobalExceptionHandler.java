@@ -20,8 +20,20 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     /**
+     * 判斷是否為 API 請求（需要回傳 JSON）
+     * 非 API 請求（前台網頁）丟出例外讓 Spring ErrorPage 機制處理
+     */
+    private boolean isApiRequest(HttpServletRequest request) {
+        String uri = request.getRequestURI();
+        String accept = request.getHeader("Accept");
+        // /api/ 路徑或明確要求 JSON 的請求視為 API
+        if (uri.startsWith("/api/")) return true;
+        if (accept != null && accept.contains("application/json")) return true;
+        return false;
+    }
+
+    /**
      * 處理 multipart 請求解析失敗（例如客戶端中斷連線、Cloudflare 截斷請求）
-     * 這類錯誤通常是客戶端問題，不應回傳 500
      */
     @ExceptionHandler({MultipartException.class, IOFileUploadException.class})
     public ResponseEntity<ErrorResponse> handleMultipartException(Exception ex, HttpServletRequest request) {
@@ -63,10 +75,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(new ErrorResponse("INVALID", "請求資料格式錯誤"));
     }
 
+    /**
+     * 全域例外處理：API 請求回傳 JSON，前台網頁請求不攔截讓 Spring ErrorPage 處理
+     */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(new ErrorResponse("SERVER_ERROR", "系統錯誤，請稍後再試"));
+    public ResponseEntity<ErrorResponse> handleException(Exception ex, HttpServletRequest request) throws Exception {
+        if (isApiRequest(request)) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponse("SERVER_ERROR", "系統錯誤，請稍後再試"));
+        }
+        // 非 API 請求：重新拋出讓 Spring Boot ErrorPage 轉發到 404/500 頁面
+        throw ex;
     }
 
     private String toFieldMessage(FieldError error) {
