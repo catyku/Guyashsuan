@@ -132,6 +132,12 @@ public class WebController {
     /** 404 */
     @GetMapping("/404.html")
     public String notFound() {
-        return "404";
+        return "404-page";
+    }
+
+    /** 500 */
+    @GetMapping("/500.html")
+    public String serverError() {
+        return "500-page";
     }
 }

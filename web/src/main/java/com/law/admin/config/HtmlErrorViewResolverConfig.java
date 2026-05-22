@@ -11,10 +11,11 @@ import org.springframework.http.HttpStatus;
 public class HtmlErrorViewResolverConfig {
 
     @Bean
-    public ErrorPageRegistrar html500ErrorPageCustomizer() {
+    public ErrorPageRegistrar htmlErrorPageCustomizer() {
         return new ErrorPageRegistrar() {
             @Override
             public void registerErrorPages(ErrorPageRegistry registry) {
+                registry.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
                 registry.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500.html"));
             }
         };

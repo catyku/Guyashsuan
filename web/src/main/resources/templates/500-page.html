@@ -5,14 +5,14 @@
       layout:decorate="~{fragments/layout}">
 
 <head>
-    <title>GUYAHSUAN Law Office | 古雅軒法律事務所 - 404 找不到頁面</title>
+    <title>GUYAHSUAN Law Office | 古雅軒法律事務所 - 500 伺服器錯誤</title>
 </head>
 
 <body>
 
 <th:block layout:fragment="content">
 
-    <!-- 404 PAGE
+    <!-- 500 PAGE
     ================================================== -->
     <section class="full-screen cover-background p-0 bg-img d-flex align-items-center min-vh-100 secondary-overlay" data-overlay-dark="8" th:data-background="@{/img/bg/bg-04.jpg}" style="background-color:#dedede">
         <div class="container" style="background-color:#dedede">
@@ -20,8 +20,8 @@
                 <div class="col-lg-8">
                     <div class="text-center bg-white py-1-6 py-sm-1-9 py-lg-2-9 py-xl-6 px-1-6 px-sm-1-9 px-xl-2-5">
                         <img class="mb-1-9" th:src="@{/img/error-img.jpg}" alt="古雅軒法律事務所">
-                        <h3 class="h2 mb-3">Opps! Page Not Found</h3>
-                        <p class="mb-1-6 text-muted">您所尋找的頁面不存在或已被移除</p>
+                        <h3 class="h2 mb-3">500 Internal Server Error</h3>
+                        <p class="mb-1-6 text-muted">伺服器發生內部錯誤，請稍後再試</p>
                         <a th:href="@{/index.html}" class="butn md butn-hover">返回首頁</a>
                     </div>
                 </div>
