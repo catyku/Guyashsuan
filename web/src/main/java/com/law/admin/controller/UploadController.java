@@ -26,13 +26,16 @@ public class UploadController {
     }
 
     /**
-     * 編輯器圖片上傳
+     * 通用圖片上傳（WangEditor / 封面圖共用）
      * WangEditor 期望回傳格式: { errno: 0, data: { url: "full_url" } }
      * TinyMCE 格式也同時支援: { location: "full_url" }
+     * 可選參數 subDir: 指定子目錄，預設 "editor"
      */
     @PostMapping("/image")
-    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file, Authentication auth) throws Exception {
-        String relativePath = fileUploadService.uploadImage(file, "editor", rootPath);
+    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file,
+                                          @RequestParam(value = "subDir", defaultValue = "editor") String subDir,
+                                          Authentication auth) throws Exception {
+        String relativePath = fileUploadService.uploadImage(file, subDir, rootPath);
         String url = "/uploads/" + relativePath;
         // WangEditor 格式
         return ResponseEntity.ok(Map.of(

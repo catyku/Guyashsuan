@@ -6,8 +6,8 @@
     </div>
     <div class="search-bar">
       <el-input v-model="keyword" placeholder="搜尋標題/內容" clearable @clear="loadData" @keyup.enter="loadData" style="width:300px" />
-      <el-select v-model="categoryFilter" placeholder="類別" clearable @change="loadData" style="width:140px">
-        <el-option label="刑事" value="刑事" /><el-option label="民事" value="民事" /><el-option label="行政" value="行政" />
+        <el-select v-model="categoryFilter" placeholder="類別" clearable @change="loadData" style="width:140px">
+        <el-option label="民事" value="民事" /><el-option label="刑事" value="刑事" /><el-option label="家事" value="家事" /><el-option label="行政" value="行政" />
       </el-select>
       <el-button @click="loadData">搜尋</el-button>
     </div>
@@ -33,7 +33,12 @@
         <el-row :gutter="16">
           <el-col :span="8">
             <el-form-item label="類別" required>
-              <el-input v-model="form.category" placeholder="例：刑事、民事、行政" />
+              <el-select v-model="form.category" placeholder="選擇類別" style="width:100%">
+                <el-option label="民事" value="民事" />
+                <el-option label="刑事" value="刑事" />
+                <el-option label="家事" value="家事" />
+                <el-option label="行政" value="行政" />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -57,10 +62,9 @@
           </div>
         </el-form-item>
         <el-form-item label="封面圖">
-          <el-upload v-if="editingId" :action="uploadUrl" :headers="uploadHeaders" :on-success="handleUploadSuccess" :show-file-list="false" accept="image/*">
+          <el-upload :action="editingId ? uploadUrl : `${basePath}api/upload/image?subDir=case`" :headers="uploadHeaders" :on-success="handlePhotoUploadSuccess" :show-file-list="false" accept="image/*" :before-upload="refreshCsrfToken">
             <el-button size="small">選擇圖片</el-button>
           </el-upload>
-          <div v-if="!editingId" style="color:#909399;font-size:12px">請先儲存案件後再上傳封面圖</div>
           <div v-if="form.image" class="preview-row"><img :src="getImageUrl(form.image)" class="preview-img" /></div>
         </el-form-item>
       </el-form>
@@ -93,10 +97,16 @@ const editorRef = shallowRef()
 
 const basePath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL
 const uploadUrl = computed(() => `${basePath}api/case/${editingId.value || 0}/photo`)
-const uploadHeaders = computed(() => {
+const uploadHeaders = ref(getCsrfHeaders())
+
+function getCsrfHeaders() {
   const t = document.cookie.match(/XSRF-TOKEN=([^;]+)/)?.[1]
   return t ? { 'X-CSRF-TOKEN': decodeURIComponent(t) } : {}
-})
+}
+
+function refreshCsrfToken() {
+  uploadHeaders.value = getCsrfHeaders()
+}
 
 const form = ref({ category: '', title: '', content: '', caseDate: '', image: '', isShow: 'Y' })
 
@@ -114,15 +124,26 @@ const editorConfig = {
   placeholder: '請輸入內容...',
   MENU_CONF: {
     uploadImage: {
-      server: '/api/upload/image',
-      fieldName: 'file',
       maxFileSize: 10 * 1024 * 1024,
-      customInsert(res: any, insertFn: Function) {
-        const raw = res.location || res.path || ''
-        const url = getImageUrl(raw)
-        insertFn(url)
+      // 完全自定義上傳，確保 CSRF token 是最新的
+      async customUpload(file: File, insertFn: Function) {
+        const url = `${basePath}api/upload/image`
+        const formData = new FormData()
+        formData.append('file', file)
+        // 每次上傳都重新取得 CSRF token
+        refreshCsrfToken()
+        const headers = { ...uploadHeaders.value }
+        try {
+          const res = await fetch(url, { method: 'POST', headers, body: formData })
+          const json = await res.json()
+          // 後端回傳格式: { errno: 0, data: { url: "/uploads/editor/xxx.jpg", alt: "filename" } }
+          const raw = json?.data?.url || json?.location || json?.path || ''
+          const imageUrl = getImageUrl(raw)
+          insertFn(imageUrl, json?.data?.alt || '')
+        } catch (e) {
+          console.error('編輯器圖片上傳失敗:', e)
+        }
       },
-      headers: uploadHeaders.value,
     },
   },
 }
@@ -171,11 +192,20 @@ async function handleDelete(row: any) {
   await loadData()
 }
 
-function handleUploadSuccess(res: any) {
-  if (res.code === 'OK') {
+function handlePhotoUploadSuccess(res: any) {
+  // 編輯模式：/api/case/{id}/photo 回傳 { code: "OK", path: "/uploads/case/xxx.jpg" }
+  if (res.code === 'OK' && res.path) {
     form.value.image = res.path
     ElMessage.success('上傳成功')
+    return
   }
+  // 新增模式：/api/upload/image 回傳 { errno: 0, data: { url: "/uploads/editor/xxx.jpg" } }
+  if (res.errno === 0 && res.data?.url) {
+    form.value.image = res.data.url
+    ElMessage.success('上傳成功')
+    return
+  }
+  ElMessage.error('上傳失敗')
 }
 
 onBeforeUnmount(() => {

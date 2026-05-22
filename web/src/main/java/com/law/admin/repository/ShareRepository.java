@@ -28,7 +28,7 @@ public class ShareRepository {
      */
     public List<Map<String, Object>> findVisibleWithPage(int limit, int offset) {
         return jdbc.queryForList(
-                "SELECT id, title, content, share_date, image FROM lw_share WHERE is_show = 'Y' ORDER BY id DESC LIMIT ? OFFSET ?",
+                "SELECT id, title, content, share_date, image FROM lw_share WHERE is_show = 'Y' ORDER BY share_date DESC NULLS LAST, id DESC LIMIT ? OFFSET ?",
                 limit, offset);
     }
 
@@ -37,7 +37,7 @@ public class ShareRepository {
      */
     public List<Map<String, Object>> findTopVisible(int limit) {
         return jdbc.queryForList(
-                "SELECT id, title, content, share_date, image FROM lw_share WHERE is_show = 'Y' ORDER BY id DESC LIMIT ?",
+                "SELECT id, title, content, share_date, image FROM lw_share WHERE is_show = 'Y' ORDER BY share_date DESC NULLS LAST, id DESC LIMIT ?",
                 limit);
     }
 
@@ -55,6 +55,6 @@ public class ShareRepository {
      */
     public List<Map<String, Object>> findAllVisibleSimple() {
         return jdbc.queryForList(
-                "SELECT id, title, share_date FROM lw_share WHERE is_show = 'Y' ORDER BY id DESC");
+                "SELECT id, title, share_date FROM lw_share WHERE is_show = 'Y' ORDER BY share_date DESC NULLS LAST, id DESC");
     }
 }

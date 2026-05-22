@@ -73,7 +73,7 @@ public class WebController {
     /** 案件實績列表 */
     @GetMapping("/case.html")
     public String caseList(@RequestParam(defaultValue = "1") int page, Model model) {
-        Map<String, Object> result = caseService.getCaseListWithPage(page, 9);
+        Map<String, Object> result = caseService.getCaseListWithPage(page, 6);
         model.addAllAttributes(result);
         model.addAttribute("site", webCommonService.getSiteSettings());
         return "case";
@@ -95,7 +95,7 @@ public class WebController {
     /** 情報分享列表 */
     @GetMapping("/share.html")
     public String shareList(@RequestParam(defaultValue = "1") int page, Model model) {
-        Map<String, Object> result = shareService.getShareListWithPage(page, 9);
+        Map<String, Object> result = shareService.getShareListWithPage(page, 6);
         model.addAllAttributes(result);
         model.addAttribute("site", webCommonService.getSiteSettings());
         return "share";

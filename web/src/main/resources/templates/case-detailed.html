@@ -67,35 +67,48 @@
 
                 <!-- Blog Details -->
                 <div class="row">
-                    <div class="col-lg-12">
-                        <article class="card card-style7" th:if="${item != null}">
-                            <img th:if="${item.image != null and !#strings.isEmpty(item.image)}"
-                                   th:src="@{${item.image}}"
-                                 th:alt="${item.title}" />
-                            <div class="card-body p-1-6 p-sm-1-9 p-xl-2-2">
-                                <h2 class="h3 mb-3" style="font-size: 1.3rem;color:#000;"
-                                    th:text="${item.title}"></h2>
-                                <ul class="blog-meta">
-                                    <li><i class="far fa-calendar-check me-2 text-primary"></i>
-                                        <span th:text="${item.case_date}"></span>
-                                    </li>
-                                    <li th:if="${item.category != null}" style="letter-spacing:5px;">
-                                        <i class="fa fa-tag me-2 text-primary"></i>
-                                        <span th:text="${item.category}"></span>
-                                    </li>
-                                </ul>
-                                <div class="w-lg-95 mb-2-2" th:utext="${item.content}"></div>
+                    <!-- start blog right (sidebar spacer) -->
+                    <div class="col-lg-4" style="width:16.5%">
+                    </div>
+                    <!-- end blog right -->
 
-                                <div class="separator">
-                                    <div class="pagination">
-                                        <ul>
-                                            <li><a th:href="@{/case.html}" class="me-3"><i class="fas fa-long-arrow-alt-left"></i></a></li>
-                                        </ul>
-                                    </div>
+                    <!-- start blog left (content) -->
+                    <div class="col-lg-8 mb-2-9 mb-lg-0">
+                        <div class="pe-lg-1-9 pe-xl-2-5">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <article class="card card-style7" th:if="${item != null}">
+                                        <img th:if="${item.image != null and !#strings.isEmpty(item.image)}"
+                                               th:src="@{${item.image}}"
+                                             th:alt="${item.title}" />
+                                        <div class="card-body p-1-6 p-sm-1-9 p-xl-2-2">
+                                            <h2 class="h3 mb-3" style="font-size: 1.3rem;color:#000;"
+                                                th:text="${item.title}"></h2>
+                                            <ul class="blog-meta">
+                                                <li><i class="far fa-calendar-check me-2 text-primary"></i>
+                                                    <span th:text="${item.case_date}"></span>
+                                                </li>
+                                                <li th:if="${item.category != null}" style="letter-spacing:5px;">
+                                                    <i class="fa fa-tag me-2 text-primary"></i>
+                                                    <span th:text="${item.category}"></span>
+                                                </li>
+                                            </ul>
+                                            <div class="w-lg-95 mb-2-2" th:utext="${item.content}"></div>
+
+                                            <div class="separator">
+                                                <div class="pagination">
+                                                    <ul>
+                                                        <li><a th:href="@{/case.html}" class="me-3"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
                                 </div>
                             </div>
-                        </article>
+                        </div>
                     </div>
+                    <!-- end blog left -->
                 </div>
 				
             </div>
