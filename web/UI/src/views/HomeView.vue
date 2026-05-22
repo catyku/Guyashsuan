@@ -2,7 +2,7 @@
   <div class="home-view">
     <h2>系統概覽</h2>
     <el-row :gutter="20" class="stats-row">
-      <el-col :span="6" v-for="stat in stats" :key="stat.label">
+      <el-col :span="12" v-for="stat in stats" :key="stat.label">
         <el-card shadow="hover" class="stat-card">
           <div class="stat-icon" :style="{ color: stat.color }">
             <component :is="stat.icon" :size="32" />
@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import http from '@/utils/http'
-import { IconGavel, IconScale, IconNotes, IconMessage, IconPhoto, IconUser } from '@tabler/icons-vue'
+import { IconGavel, IconScale, IconNotes } from '@tabler/icons-vue'
 
 interface StatItem {
   label: string
@@ -36,10 +36,8 @@ onMounted(async () => {
     const res = await http.get('/dashboard/stats', { loading: false } as any)
     const data = res.data
     stats.value = [
-      { label: '律師人數', value: data.attorneyCount || 0, icon: IconUser, color: '#409EFF' },
       { label: '案件實績', value: data.caseCount || 0, icon: IconScale, color: '#67C23A' },
       { label: '情報分享', value: data.shareCount || 0, icon: IconNotes, color: '#E6A23C' },
-      { label: '待處理諮詢', value: data.pendingConsultation || 0, icon: IconMessage, color: '#F56C6C' },
     ]
   } catch {
     // ignore
