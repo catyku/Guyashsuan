@@ -26,7 +26,7 @@ public class CaseRepository {
     /**
      * 分頁查詢案件實績
      */
-    public List<Map<String, Object>> findVisibleWithPage(int limit, int offset) {
+    public List<Map<String, Object>> findVisibleWithPage(int limit, long offset) {
         return jdbc.queryForList(
                 "SELECT id, category, title, content, case_date, image FROM lw_case WHERE is_show = 'Y' ORDER BY ISNULL(case_date) ASC, case_date DESC, id DESC LIMIT ? OFFSET ?",
                 limit, offset);
