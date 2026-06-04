@@ -58,8 +58,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/login", "/api/auth/csrf", "/api/captcha/**", "/api/consultation/public/**").permitAll()
                 .requestMatchers("/error", "/error/**").permitAll()
-                // 前台所有 .html 頁面（含動態路由與不存在的路徑，確保 404 正常顯示）
-                .requestMatchers("/", "/index.html", "/attorney.html", "/attorney/*.html", "/service.html", "/case.html", "/case/*.html", "/share.html", "/share/*.html", "/about.html", "/consultation.html", "/404.html", "/500.html", "/*.html").permitAll()
+                // 前台所有 .html 頁面（明確列出，避免過寬授權）
+                .requestMatchers("/", "/index.html", "/attorney.html", "/attorney_*.html", "/service.html", "/case.html", "/case/*.html", "/share.html", "/share/*.html", "/about.html", "/consultation.html", "/404.html", "/500.html").permitAll()
                 // 舊路徑重導向（無 .html 後綴）
                 .requestMatchers("/attorney", "/attorney/*", "/service", "/case", "/case/*", "/share", "/share/*", "/about", "/consultation").permitAll()
                 // 靜態資源
@@ -128,10 +128,10 @@ public class SecurityConfig {
             .headers(headers -> headers
                 .contentSecurityPolicy(csp -> csp.policyDirectives(
                     "default-src 'self'; " +
-                    "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; " +
+                    "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com https://www.google-analytics.com; " +
                     "style-src 'self' 'unsafe-inline'; " +
-                    "img-src 'self' data: blob:; " +
-                    "connect-src 'self' https://static.cloudflareinsights.com https://cloudflareinsights.com; " +
+                    "img-src 'self' data: blob: https://www.google-analytics.com; " +
+                    "connect-src 'self' https://static.cloudflareinsights.com https://cloudflareinsights.com https://www.google-analytics.com https://region1.google-analytics.com; " +
                     "font-src 'self' data:; " +
                     "object-src 'none'; " +
                     "frame-ancestors 'none'"

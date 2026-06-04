@@ -33,6 +33,7 @@ public class WebController {
     /** 首頁 */
     @GetMapping({"/", "/index.html"})
     public String index(Model model) {
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所");
         model.addAttribute("banners", webCommonService.getAllBanners());
         model.addAttribute("cases", caseService.getTopCases(3));
         model.addAttribute("shares", shareService.getTopShares(3));
@@ -44,6 +45,7 @@ public class WebController {
     /** 律師列表 */
     @GetMapping("/attorney.html")
     public String attorney(Model model) {
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 | Attorneys, etc. 律師等");
         model.addAttribute("attorneys", webCommonService.getAllAttorneys());
         model.addAttribute("site", webCommonService.getSiteSettings());
         return "attorney";
@@ -59,6 +61,7 @@ public class WebController {
     /** 業務領域 */
     @GetMapping("/service.html")
     public String service(Model model) {
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 | Business Areas 業務領域");
         model.addAttribute("services", webCommonService.getAllServices());
         model.addAttribute("site", webCommonService.getSiteSettings());
         return "service";
@@ -67,6 +70,7 @@ public class WebController {
     /** 案件實績列表 */
     @GetMapping("/case.html")
     public String caseList(@RequestParam(defaultValue = "1") int page, Model model) {
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 | Sucessful Case 案件實績");
         Map<String, Object> result = caseService.getCaseListWithPage(page, 6);
         model.addAllAttributes(result);
         model.addAttribute("site", webCommonService.getSiteSettings());
@@ -80,6 +84,7 @@ public class WebController {
         if (caseItem == null) {
             return "redirect:/case.html";
         }
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 | " + caseItem.get("title"));
         model.addAttribute("item", caseItem);
         model.addAttribute("cases", caseService.getAllCasesSimple());
         model.addAttribute("site", webCommonService.getSiteSettings());
@@ -89,6 +94,7 @@ public class WebController {
     /** 情報分享列表 */
     @GetMapping("/share.html")
     public String shareList(@RequestParam(defaultValue = "1") int page, Model model) {
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 | Intelligence Sharing 情報分享");
         Map<String, Object> result = shareService.getShareListWithPage(page, 6);
         model.addAllAttributes(result);
         model.addAttribute("site", webCommonService.getSiteSettings());
@@ -102,6 +108,7 @@ public class WebController {
         if (shareItem == null) {
             return "redirect:/share.html";
         }
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 | " + shareItem.get("title"));
         model.addAttribute("item", shareItem);
         model.addAttribute("shares", shareService.getAllSharesSimple());
         model.addAttribute("site", webCommonService.getSiteSettings());
@@ -111,6 +118,7 @@ public class WebController {
     /** 事務所概要 */
     @GetMapping("/about.html")
     public String about(Model model) {
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 | Office Introduction 事務所概要");
         model.addAttribute("attorneys", webCommonService.getAllAttorneysSimple());
         model.addAttribute("site", webCommonService.getSiteSettings());
         return "about";
@@ -119,19 +127,22 @@ public class WebController {
     /** 免費法律諮詢 */
     @GetMapping("/consultation.html")
     public String consultation(Model model) {
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 | Free Legal Counsel 免費法律諮詢");
         model.addAttribute("site", webCommonService.getSiteSettings());
         return "consultation";
     }
 
     /** 404 */
     @GetMapping("/404.html")
-    public String notFound() {
+    public String notFound(Model model) {
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 - 404 找不到頁面");
         return "404-page";
     }
 
     /** 500 */
     @GetMapping("/500.html")
-    public String serverError() {
+    public String serverError(Model model) {
+        model.addAttribute("pageTitle", "GUYAHSUAN Law Office | 古雅軒法律事務所 - 500 伺服器錯誤");
         return "500-page";
     }
 }

@@ -11,12 +11,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.UUID;
+import java.util.Set;
 
 @Service
 public class FileUploadService {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUploadService.class);
+
+    private static final Set<String> ALLOWED_EXTENSIONS = Set.of(".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".svg");
 
     @Value("${app.upload.img-width:1024}")
     private int imgWidth;
@@ -40,6 +42,11 @@ public class FileUploadService {
         if (originalFilename != null && originalFilename.contains(".")) {
             ext = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
         }
+
+        if (!ALLOWED_EXTENSIONS.contains(ext)) {
+            throw new IllegalArgumentException("不支援的檔案格式，僅允許: " + ALLOWED_EXTENSIONS);
+        }
+
         String newFilename = UUID.randomUUID().toString() + ext;
 
         Path uploadDir = Paths.get(rootPath, subDir);

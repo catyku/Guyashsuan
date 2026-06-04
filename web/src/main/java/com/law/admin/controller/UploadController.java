@@ -35,6 +35,15 @@ public class UploadController {
     public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file,
                                           @RequestParam(value = "subDir", defaultValue = "editor") String subDir,
                                           Authentication auth) throws Exception {
+        if (file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("errno", 1, "msg", "檔案不可為空"));
+        }
+
+        String contentType = file.getContentType();
+        if (contentType == null || !contentType.toLowerCase().startsWith("image/")) {
+            return ResponseEntity.badRequest().body(Map.of("errno", 1, "msg", "僅允許上傳圖片檔案"));
+        }
+
         String relativePath = fileUploadService.uploadImage(file, subDir, rootPath);
         String url = "/uploads/" + relativePath;
         // WangEditor 格式

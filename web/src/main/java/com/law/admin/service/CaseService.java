@@ -1,6 +1,7 @@
 package com.law.admin.service;
 
 import com.law.admin.repository.CaseRepository;
+import com.law.admin.util.HtmlUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class CaseService {
         int totalPages = (int) Math.ceil((double) total / pageSize);
 
         List<Map<String, Object>> cases = caseRepository.findVisibleWithPage(pageSize, offset);
-        cases.forEach(c -> c.put("summary", stripHtml((String) c.get("content"), 120)));
+        cases.forEach(c -> c.put("summary", HtmlUtils.stripHtml((String) c.get("content"), 120)));
 
         Map<String, Object> result = new HashMap<>();
         result.put("cases", cases);
@@ -41,7 +42,7 @@ public class CaseService {
      */
     public List<Map<String, Object>> getTopCases(int limit) {
         List<Map<String, Object>> cases = caseRepository.findTopVisible(limit);
-        cases.forEach(c -> c.put("summary", stripHtml((String) c.get("content"), 120)));
+        cases.forEach(c -> c.put("summary", HtmlUtils.stripHtml((String) c.get("content"), 120)));
         return cases;
     }
 
@@ -57,15 +58,5 @@ public class CaseService {
      */
     public List<Map<String, Object>> getAllCasesSimple() {
         return caseRepository.findAllVisibleSimple();
-    }
-
-    /**
-     * 移除 HTML 標籤並截取摘要
-     */
-    private String stripHtml(String html, int maxLen) {
-        if (html == null || html.isBlank()) return "";
-        String text = html.replaceAll("<[^>]*>", "").replaceAll("&nbsp;", " ").trim();
-        if (text.length() <= maxLen) return text;
-        return text.substring(0, maxLen) + "…";
     }
 }

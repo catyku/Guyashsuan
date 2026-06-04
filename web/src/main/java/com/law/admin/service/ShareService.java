@@ -1,6 +1,7 @@
 package com.law.admin.service;
 
 import com.law.admin.repository.ShareRepository;
+import com.law.admin.util.HtmlUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class ShareService {
         int totalPages = (int) Math.ceil((double) total / pageSize);
 
         List<Map<String, Object>> shares = shareRepository.findVisibleWithPage(pageSize, offset);
-        shares.forEach(s -> s.put("summary", stripHtml((String) s.get("content"), 120)));
+        shares.forEach(s -> s.put("summary", HtmlUtils.stripHtml((String) s.get("content"), 120)));
 
         Map<String, Object> result = new HashMap<>();
         result.put("shares", shares);
@@ -41,7 +42,7 @@ public class ShareService {
      */
     public List<Map<String, Object>> getTopShares(int limit) {
         List<Map<String, Object>> shares = shareRepository.findTopVisible(limit);
-        shares.forEach(s -> s.put("summary", stripHtml((String) s.get("content"), 120)));
+        shares.forEach(s -> s.put("summary", HtmlUtils.stripHtml((String) s.get("content"), 120)));
         return shares;
     }
 
@@ -57,15 +58,5 @@ public class ShareService {
      */
     public List<Map<String, Object>> getAllSharesSimple() {
         return shareRepository.findAllVisibleSimple();
-    }
-
-    /**
-     * 移除 HTML 標籤並截取摘要
-     */
-    private String stripHtml(String html, int maxLen) {
-        if (html == null || html.isBlank()) return "";
-        String text = html.replaceAll("<[^>]*>", "").replaceAll("&nbsp;", " ").trim();
-        if (text.length() <= maxLen) return text;
-        return text.substring(0, maxLen) + "…";
     }
 }
