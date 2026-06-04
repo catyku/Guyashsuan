@@ -21,7 +21,8 @@ public class ShareService {
      * 獲取分頁情報分享列表
      */
     public Map<String, Object> getShareListWithPage(int page, int pageSize) {
-        int offset = (page - 1) * pageSize;
+        // CWE-682：使用 long 運算避免大頁碼導致整數溢位
+        long offset = Math.max((long)(page - 1) * pageSize, 0L);
         int total = shareRepository.countVisible();
         int totalPages = (int) Math.ceil((double) total / pageSize);
 

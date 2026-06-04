@@ -65,7 +65,7 @@ public class SecurityConfig {
                 // 靜態資源
                 .requestMatchers("/admin", "/admin/", "/admin/*.html", "/admin/assets/**").permitAll()
                 .requestMatchers("/assets/**", "/uploads/**", "/css/**", "/js/**", "/img/**", "/fonts/**", "/search/**", "/favicon.ico", "/apple-touch-icon*.png").permitAll()
-                .requestMatchers("/api/dev/**").permitAll()
+                // CWE-732：移除 /api/dev/** 的公開存取（不受限制的 API 端點存在安全風險）
                 .anyRequest().authenticated()
             )
             .csrf(csrf -> csrf

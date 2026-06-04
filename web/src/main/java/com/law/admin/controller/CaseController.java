@@ -61,6 +61,8 @@ public class CaseController {
             @RequestParam(defaultValue = "20") int size) {
 
         size = Math.min(size, 100);
+        // CWE-682：使用 long 運算避免大頁碼導致整數溢位
+        long offset = Math.max((long)(page - 1) * size, 0L);
 
         StringBuilder where = new StringBuilder(" WHERE 1=1");
         List<Object> params = new ArrayList<>();
@@ -79,7 +81,6 @@ public class CaseController {
         Integer total = jdbc.queryForObject(
                 "SELECT COUNT(*) FROM lw_case" + where, Integer.class, params.toArray());
 
-        int offset = Math.max((page - 1) * size, 0);
         List<Object> queryParams = new ArrayList<>(params);
         queryParams.add(size);
         queryParams.add(offset);

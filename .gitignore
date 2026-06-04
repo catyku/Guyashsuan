@@ -7,3 +7,5 @@ admin/UI/node_modules/
 
 # Logs
 admin/logs/
+
+src/main/resources/static/admin

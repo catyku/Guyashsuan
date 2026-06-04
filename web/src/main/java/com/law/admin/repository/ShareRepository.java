@@ -26,7 +26,7 @@ public class ShareRepository {
     /**
      * 分頁查詢情報分享
      */
-    public List<Map<String, Object>> findVisibleWithPage(int limit, int offset) {
+    public List<Map<String, Object>> findVisibleWithPage(int limit, long offset) {
         return jdbc.queryForList(
                 "SELECT id, title, content, share_date, image FROM lw_share WHERE is_show = 'Y' ORDER BY ISNULL(share_date) ASC, share_date DESC, id DESC LIMIT ? OFFSET ?",
                 limit, offset);

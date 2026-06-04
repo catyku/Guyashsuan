@@ -1,6 +1,8 @@
 package com.law.admin.controller;
 
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.Authentication;
@@ -15,6 +17,8 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/admin-user")
 public class AdminUserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AdminUserController.class);
 
     private final JdbcTemplate jdbc;
     private final PasswordEncoder passwordEncoder;
@@ -90,6 +94,9 @@ public class AdminUserController {
                 req.getRole() != null ? req.getRole() : "ADMIN",
                 req.getIsEnabled() != null ? req.getIsEnabled() : "Y", auth.getName());
 
+        // CWE-778：記錄管理員建立操作
+        logger.info("[ADMIN] 管理員建立：operator={}, newUser={}, role={}",
+                auth.getName(), req.getUsername(), req.getRole());
         return ResponseEntity.ok(Map.of("code", "OK", "msg", "新增成功"));
     }
 
@@ -118,6 +125,8 @@ public class AdminUserController {
         params.add(id);
         jdbc.update(sql.toString(), params.toArray());
 
+        // CWE-778：記錄管理員修改操作
+        logger.info("[ADMIN] 管理員資料修改：operator={}, targetId={}", auth.getName(), id);
         return ResponseEntity.ok(Map.of("code", "OK", "msg", "修改成功"));
     }
 
@@ -134,6 +143,8 @@ public class AdminUserController {
         if (rows == 0) {
             return ResponseEntity.status(404).body(Map.of("code", "NOT_FOUND", "msg", "管理員不存在"));
         }
+        // CWE-778：記錄管理員刪除操作
+        logger.info("[ADMIN] 管理員刪除：operator={}, deletedId={}", auth.getName(), id);
         return ResponseEntity.ok(Map.of("code", "OK", "msg", "刪除成功"));
     }
 }
