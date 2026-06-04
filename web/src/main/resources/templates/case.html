@@ -78,8 +78,8 @@
                                       th:src="@{${case.image}}"
                                      th:alt="${case.title}" />
                                 <img th:unless="${case.image != null and !#strings.isEmpty(case.image)}"
-                                     th:src="@{/img/content/case-default.jpg}"
-                                     src="/img/content/case-default.jpg"
+                                     th:src="@{/img/case1.jpg}"
+                                     src="/img/case1.jpg"
                                      th:alt="${case.title}" />
                                 <div class="tags" th:if="${case.category != null}">
                                     <a th:text="${case.category}" style="letter-spacing:5px;"></a>

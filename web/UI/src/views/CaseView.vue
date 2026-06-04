@@ -62,7 +62,7 @@
           </div>
         </el-form-item>
         <el-form-item label="封面圖">
-          <el-upload :action="editingId ? uploadUrl : `${basePath}api/upload/image?subDir=case`" :headers="uploadHeaders" :on-success="handlePhotoUploadSuccess" :show-file-list="false" accept="image/*" :before-upload="refreshCsrfToken">
+          <el-upload :action="editingId ? uploadUrl : `/api/upload/image?subDir=case`" :headers="uploadHeaders" :on-success="handlePhotoUploadSuccess" :show-file-list="false" accept="image/*" :before-upload="refreshCsrfToken">
             <el-button size="small">選擇圖片</el-button>
           </el-upload>
           <div v-if="form.image" class="preview-row"><img :src="getImageUrl(form.image)" class="preview-img" /></div>
@@ -95,8 +95,7 @@ const editingId = ref<number | null>(null)
 const saving = ref(false)
 const editorRef = shallowRef()
 
-const basePath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL
-const uploadUrl = computed(() => `${basePath}api/case/${editingId.value || 0}/photo`)
+const uploadUrl = computed(() => `/api/case/${editingId.value || 0}/photo`)
 const uploadHeaders = ref(getCsrfHeaders())
 
 function getCsrfHeaders() {
@@ -127,7 +126,7 @@ const editorConfig = {
       maxFileSize: 10 * 1024 * 1024,
       // 完全自定義上傳，確保 CSRF token 是最新的
       async customUpload(file: File, insertFn: Function) {
-        const url = `${basePath}api/upload/image`
+        const url = `/api/upload/image`
         const formData = new FormData()
         formData.append('file', file)
         // 每次上傳都重新取得 CSRF token

@@ -99,8 +99,7 @@ const dialogVisible = ref(false)
 const editingId = ref<number | null>(null)
 const saving = ref(false)
 
-const basePath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL
-const uploadUrl = computed(() => `${basePath}api/attorney/${editingId.value || 0}/photo`)
+const uploadUrl = computed(() => `/api/attorney/${editingId.value || 0}/photo`)
 const uploadHeaders = computed(() => {
   const token = document.cookie.match(/XSRF-TOKEN=([^;]+)/)?.[1]
   return token ? { 'X-CSRF-TOKEN': decodeURIComponent(token) } : {}

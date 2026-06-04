@@ -83,8 +83,7 @@ const editingId = ref<number | null>(null)
 const saving = ref(false)
 const editorRef = shallowRef()
 
-const basePath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL
-const uploadUrl = computed(() => `${basePath}api/share/${editingId.value || 0}/photo`)
+const uploadUrl = computed(() => `/api/share/${editingId.value || 0}/photo`)
 const uploadHeaders = computed(() => {
   const t = document.cookie.match(/XSRF-TOKEN=([^;]+)/)?.[1]
   return t ? { 'X-CSRF-TOKEN': decodeURIComponent(t) } : {}
@@ -106,15 +105,25 @@ const editorConfig = {
   placeholder: '請輸入內容...',
   MENU_CONF: {
     uploadImage: {
-      server: '/api/upload/image',
-      fieldName: 'file',
       maxFileSize: 10 * 1024 * 1024,
-      customInsert(res: any, insertFn: Function) {
-        const raw = res.location || res.path || ''
-        const url = getImageUrl(raw)
-        insertFn(url)
+      async customUpload(file: File, insertFn: Function) {
+        const url = '/api/upload/image'
+        const formData = new FormData()
+        formData.append('file', file)
+        // 每次上傳都重新取得 CSRF token
+        const t = document.cookie.match(/XSRF-TOKEN=([^;]+)/)?.[1]
+        const headers: Record<string, string> = t ? { 'X-CSRF-TOKEN': decodeURIComponent(t) } : {}
+        try {
+          const res = await fetch(url, { method: 'POST', headers, body: formData })
+          const json = await res.json()
+          // 後端回傳格式: { errno: 0, data: { url: "/uploads/editor/xxx.jpg", alt: "filename" } }
+          const raw = json?.data?.url || json?.location || json?.path || ''
+          const imageUrl = getImageUrl(raw)
+          insertFn(imageUrl, json?.data?.alt || '')
+        } catch (e) {
+          console.error('編輯器圖片上傳失敗:', e)
+        }
       },
-      headers: uploadHeaders.value,
     },
   },
 }

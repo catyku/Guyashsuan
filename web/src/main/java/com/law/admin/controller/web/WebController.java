@@ -48,18 +48,12 @@ public class WebController {
         model.addAttribute("site", webCommonService.getSiteSettings());
         return "attorney";
     }
-
-    /** 律師詳細 */
-    @GetMapping("/attorney/{id}.html")
+    
+    /** 律師列表 */
+    @GetMapping("/attorney_{id}.html")
     public String attorneyDetail(@PathVariable Integer id, Model model) {
-        Map<String, Object> attorney = webCommonService.getAttorneyDetail(id);
-        if (attorney == null) {
-            return "redirect:/attorney.html";
-        }
-        model.addAttribute("attorney", attorney);
-        model.addAttribute("attorneys", webCommonService.getAllAttorneysSimple());
-        model.addAttribute("site", webCommonService.getSiteSettings());
-        return "attorney-detail";
+        
+        return "attorney_"+id;
     }
 
     /** 業務領域 */

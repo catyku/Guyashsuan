@@ -54,8 +54,7 @@ import http from '@/utils/http'
 const items=ref<any[]>([])
 const dialogVisible=ref(false),editingId=ref<number|null>(null),saving=ref(false)
 
-const basePath=import.meta.env.BASE_URL==='/'?'':import.meta.env.BASE_URL
-const uploadUrl=computed(()=>`${basePath}api/banner/${editingId.value||0}/photo`)
+const uploadUrl=computed(()=>`/api/banner/${editingId.value||0}/photo`)
 const uploadHeaders=computed(()=>{const t=document.cookie.match(/XSRF-TOKEN=([^;]+)/)?.[1];return t?{'X-CSRF-TOKEN':decodeURIComponent(t)}:{}})
 
 const form=ref({title:'',subtitle:'',image:'',linkUrl:'',sortOrder:0,isShow:'Y'})

@@ -87,6 +87,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -139,6 +145,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<finalName>sas</finalName>
+		<finalName>ROOT</finalName>
 	</build>
 </project>

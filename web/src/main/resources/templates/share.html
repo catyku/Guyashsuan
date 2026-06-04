@@ -78,7 +78,7 @@
                                 <h3 class="mb-3 h4">
                                     <a th:href="@{/share/{id}.html(id=${share.id})}" th:text="${share.title}"></a>
                                 </h3>
-                                <p th:if="${share.summary != null}" th:text="${share.summary}" class="mb-3"></p>
+                                
                                 <a th:href="@{/share/{id}.html(id=${share.id})}" class="font-weight-500">
                                     Read more<i class="fas fa-long-arrow-alt-right align-middle ms-2 display-30"></i>
                                 </a>
