@@ -26,21 +26,29 @@
 - [✅] 遷移計劃已生成 → [plan.md](.github/modernize/7b635c4b-fc56-44d8-8285-40466b75b3f2/plan.md)
 - [✅] 版本控制設定 (分支已存在: `modernize/java-20260604142935`)
 - 程式碼修復
-  - [⌛️] web/src/main/java/com/law/admin/service/FileUploadService.java
-  - [ ] web/src/main/java/com/law/admin/controller/UploadController.java
-  - [ ] web/src/main/java/com/law/admin/controller/CaseController.java
-  - [ ] web/src/main/java/com/law/admin/controller/ShareController.java
-  - [ ] web/src/main/java/com/law/admin/controller/ConsultationController.java
-  - [ ] web/src/main/java/com/law/admin/config/SecurityConfig.java
-  - [ ] web/src/main/java/com/law/admin/controller/AdminUserController.java
+  - [✅] web/src/main/java/com/law/admin/service/FileUploadService.java — CWE-22/23/36, CWE-434, CWE-772/775, CWE-778
+  - [✅] web/src/main/java/com/law/admin/controller/UploadController.java — CWE-22/23/36, CWE-778
+  - [✅] web/src/main/java/com/law/admin/controller/CaseController.java — CWE-682
+  - [✅] web/src/main/java/com/law/admin/controller/ShareController.java — CWE-682
+  - [✅] web/src/main/java/com/law/admin/controller/ConsultationController.java — CWE-682
+  - [✅] web/src/main/java/com/law/admin/controller/ServiceController.java — CWE-682
+  - [✅] web/src/main/java/com/law/admin/service/CaseService.java — CWE-682 (完整性檢查發現)
+  - [✅] web/src/main/java/com/law/admin/service/ShareService.java — CWE-682 (完整性檢查發現)
+  - [✅] web/src/main/java/com/law/admin/repository/CaseRepository.java — CWE-682 型別更新
+  - [✅] web/src/main/java/com/law/admin/repository/ShareRepository.java — CWE-682 型別更新
+  - [✅] web/src/main/java/com/law/admin/config/SecurityConfig.java — CWE-732
+  - [✅] web/src/main/java/com/law/admin/controller/AdminUserController.java — CWE-778
+  - [✅] web/src/main/resources/logback-spring.xml — CWE-778 安全稽核日誌
 - 驗證與修復
-  - [ ] 建置環境設置
-  - [ ] 建置與修復
-  - [ ] CVE 檢查
-  - [ ] 一致性檢查
-  - [ ] 測試修復
-  - [ ] 完整性檢查
-  - [ ] 建置驗證
-- [ ] 最終摘要
+  - [✅] 建置環境設置
+    - JAVA_HOME: D:\jdk-25+36
+    - MAVEN_HOME: D:\netbeans\java\maven
+  - [✅] 建置與修復 (首次即成功)
+  - [✅] CVE 檢查 (未發現新 CVE)
+  - [✅] 一致性檢查 (0 Critical, 0 Major, 1 Minor — Minor 為 alt="" 欄位變更，已記錄)
+  - [✅] 測試修復 (所有測試通過)
+  - [✅] 完整性檢查 (發現並修復 CaseService、ShareService 及其 Repository 的 CWE-682)
+  - [✅] 建置驗證 (最終建置成功)
+- [⌛️] 最終摘要
   - [ ] 最終程式碼提交
   - [ ] 遷移摘要生成
