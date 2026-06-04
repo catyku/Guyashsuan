@@ -49,6 +49,6 @@
   - [✅] 測試修復 (所有測試通過)
   - [✅] 完整性檢查 (發現並修復 CaseService、ShareService 及其 Repository 的 CWE-682)
   - [✅] 建置驗證 (最終建置成功)
-- [⌛️] 最終摘要
-  - [ ] 最終程式碼提交
-  - [ ] 遷移摘要生成
+- [✅] 最終摘要 → [summary.md](.github/modernize/7b635c4b-fc56-44d8-8285-40466b75b3f2/summary.md)
+  - [✅] 最終程式碼提交 (commit: aec29fca)
+  - [✅] 遷移摘要生成
