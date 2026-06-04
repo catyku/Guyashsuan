@@ -16,6 +16,9 @@
 	<description>古雅軒法律事務所後台管理系統</description>
 	<properties>
 		<java.version>25</java.version>
+		<!-- 覆寫 Spring Boot BOM 的 Tomcat 版本以修復 CVE-2026-42498、CVE-2026-41293、
+		     CVE-2026-43515、CVE-2026-43513、CVE-2026-43512、CVE-2026-41284 等漏洞 -->
+		<tomcat.version>11.0.22</tomcat.version>
 	</properties>
 	<dependencies>
 		<dependency>
