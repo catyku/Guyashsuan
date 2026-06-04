@@ -12,83 +12,42 @@
 
 <th:block layout:fragment="content">
 
-<!-- PAGE TITLE
-        ================================================== -->
-        <section class="top-position1 pt-0" style="background: #e3e4e5;padding-bottom: 70px;">
-            <div class="page-title-section bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="img/bg/bg-04.jpg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="page-title">
-                                <h1>Guyahsuan  Law Office</h1>
-                                <p class="text-white fs-4 mb-0 letter-spacing-2" style="letter-spacing:7px;">/黃煦詮律師　鄭文朋律師 　陳庭浩律師</p>
-                            </div>
+    <!-- 共用頁面標題區塊 -->
+    <th:block th:replace="~{fragments/attorney-page-title :: attorney-page-title}"></th:block>
 
-                        </div>
-                    </div>
-                </div>
+    <!-- attorney detail
+    ================================================== -->
+    <section class="pt-0"style="background: #e3e4e5;padding-bottom: 200px;">
+        <div class="container">
+            <div class="section-heading"style="padding-bottom: 50px;">
+                <span class="alt-font"style="letter-spacing:10px;">合署律師</span>
+                <h2 style="font-size: 1.8rem;">陳庭浩 律師</h2>
             </div>
-			        <!-- COUNTER
-        ================================================== -->
-        <section class="bg-img cover-background secondary-overlay" data-overlay-dark="8" data-background="img/attorney_bg.jpg">
-            <div class="container">
-                <div class="row mt-n1-9">
-                    <div class="col-sm-6 col-lg-3 mt-1-9">
-                           
-                    </div>
-                    
-                    
-                    
-                </div>
-            </div>
-        </section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="breadcrumb">
-                            <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="attorney.html">Attorneys, etc.</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- attorney
-        ================================================== -->
-        <section class="pt-0"style="background: #e3e4e5;padding-bottom: 200px;">
-            <div class="container">
-                <div class="section-heading"style="padding-bottom: 50px;">
-                    <span class="alt-font"style="letter-spacing:10px;">合署律師</span>
-                    <h2 style="font-size: 1.8rem;">陳庭浩 律師</h2>
-                </div>
-                 <!-- TEAM
-        ================================================== -->
-        <section style="padding: 0px">
-            <div class="container">
-				
-                <div class="row g-0 justify-content-center">
-                    <div class="col-lg-4 order-2 order-lg-1">
-                        <div class="testimonial-boxs">
-							
-                            <div class="testimonial-style2 owl-carousel owl-theme">
-                                <div class="testimonial-block">
-									<div class="flex-grow-1 ms-3">
-                                            <h3 class="h5 mb-1">學　歷</h3>
-								<span class="display-30 text-muted" >Education</span>
-                                        </div>
-                                    <p class="mb-3 mb-md-4 display-29 display-sm-28" style="padding-top: 10px;font-size: 0.9rem;">國立臺北大學法學學士<br>
-國立臺北大學法學碩士</p>
-                                    
+             <!-- TEAM
+    ================================================== -->
+    <section style="padding: 0px">
+        <div class="container">
+            
+            <div class="row g-0 justify-content-center">
+                <div class="col-lg-4 order-2 order-lg-1">
+                    <div class="testimonial-boxs">
+                        
+                        <div class="testimonial-style2 owl-carousel owl-theme">
+                            <div class="testimonial-block">
+                                <div class="flex-grow-1 ms-3">
+                                    <h3 class="h5 mb-1">學　歷</h3>
+                                    <span class="display-30 text-muted" >Education</span>
                                 </div>
-                                <div class="testimonial-block">
-                                   <div class="flex-grow-1 ms-3">
-                                            <h3 class="h5 mb-1">經　歷</h3>
-								<span class="display-30 text-muted" >Experience</span>
-                                        </div>
-                                    <p class="mb-3 mb-md-4 display-29 display-sm-28" style="padding-top: 10px;font-size: 0.9rem;">108年律師高考合格<br>
+                                <p class="mb-3 mb-md-4 display-29 display-sm-28" style="padding-top: 10px;font-size: 0.9rem;">國立臺北大學法學學士<br>
+國立臺北大學法學碩士</p>
+                                
+                            </div>
+                            <div class="testimonial-block">
+                                <div class="flex-grow-1 ms-3">
+                                    <h3 class="h5 mb-1">經　歷</h3>
+                                    <span class="display-30 text-muted" >Experience</span>
+                                </div>
+                                <p class="mb-3 mb-md-4 display-29 display-sm-28" style="padding-top: 10px;font-size: 0.9rem;">108年律師高考合格<br>
 日本神戶大學法學研究科交換生<br>
 國立臺北大學法律服務社諮詢律師<br>
 南台中家扶中心諮詢律師<br>
@@ -97,42 +56,30 @@
 前志光公職補習班高普考講師<br>
 信託業業務人員/高齡金融規劃顧問師合格<br>
 JLPT日本語能力試驗N1合格</p>
-									
-                                </div>
-                                <div class="testimonial-block">
-                                   <div class="flex-grow-1 ms-3">
-                                            <h3 class="h5 mb-1">著　作</h3>
-								<span class="display-30 text-muted" >Writing</span>
-                                        </div>
-                                    <p class="mb-3 mb-md-4 display-29 display-sm-28" style="padding-top: 10px;font-size: 0.9rem;">科技部專題計畫-《我國成年監護制度之困境與修法趨勢》<br>
-國立臺北大學碩士論文-《從日本立法例論我國意定監護制度下主觀利益與客觀利益之調和</p>
-									
-                                </div>
-								
-								
+                                
                             </div>
+                            <div class="testimonial-block">
+                                <div class="flex-grow-1 ms-3">
+                                    <h3 class="h5 mb-1">著　作</h3>
+                                    <span class="display-30 text-muted" >Writing</span>
+                                </div>
+                                <p class="mb-3 mb-md-4 display-29 display-sm-28" style="padding-top: 10px;font-size: 0.9rem;">科技部專題計畫-《我國成年監護制度之困境與修法趨勢》<br>
+國立臺北大學碩士論文-《從日本立法例論我國意定監護制度下主觀利益與客觀利益之調和</p>
+                                
+                            </div>
+                            
                         </div>
                     </div>
-                    <div class="col-lg-6 order-1 order-lg-2">
-                        <img src="img/team/poto3.jpg" alt="陳庭浩 律師">
-                    </div>
                 </div>
-				
-                
-				
+                <div class="col-lg-6 order-1 order-lg-2">
+                    <img src="/img/team/poto3.jpg" alt="陳庭浩 律師">
+                </div>
             </div>
-        </section>
-            </div>
-        </section>
-
- 
-
-
-
-
-
-         <!-- FOOTER
-        ================================================== -->
+            
+        </div>
+    </section>
+        </div>
+    </section>
 
 </th:block>
 
