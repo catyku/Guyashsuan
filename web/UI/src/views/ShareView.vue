@@ -50,10 +50,9 @@
           </div>
         </el-form-item>
         <el-form-item label="封面圖">
-          <el-upload v-if="editingId" :action="uploadUrl" :headers="uploadHeaders" :on-success="handleUploadSuccess" :show-file-list="false" accept="image/*">
+          <el-upload :http-request="handleCoverUpload" :show-file-list="false" accept="image/*">
             <el-button size="small">選擇圖片</el-button>
           </el-upload>
-          <div v-if="!editingId" style="color:#909399;font-size:12px">請先儲存文章後再上傳封面圖</div>
           <div v-if="form.image" class="preview-row"><img :src="getImageUrl(form.image)" class="preview-img" /></div>
         </el-form-item>
       </el-form>
@@ -66,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef, onMounted, computed, onBeforeUnmount } from 'vue'
+import { ref, shallowRef, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { IconPlus } from '@tabler/icons-vue'
 import http from '@/utils/http'
@@ -82,12 +81,6 @@ const dialogVisible = ref(false)
 const editingId = ref<number | null>(null)
 const saving = ref(false)
 const editorRef = shallowRef()
-
-const uploadUrl = computed(() => `/api/share/${editingId.value || 0}/photo`)
-const uploadHeaders = computed(() => {
-  const t = document.cookie.match(/XSRF-TOKEN=([^;]+)/)?.[1]
-  return t ? { 'X-CSRF-TOKEN': decodeURIComponent(t) } : {}
-})
 
 const form = ref({ title: '', content: '', shareDate: '', image: '', isShow: 'Y' })
 
@@ -172,10 +165,32 @@ async function handleDelete(row: any) {
   await loadData()
 }
 
-function handleUploadSuccess(res: any) {
-  if (res.code === 'OK') {
-    form.value.image = res.path
+async function handleCoverUpload(options: any) {
+  const file = options?.file as File
+  if (!file) {
+    ElMessage.error('未選擇檔案')
+    return
+  }
+
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const t = document.cookie.match(/XSRF-TOKEN=([^;]+)/)?.[1]
+  const headers: Record<string, string> = t ? { 'X-CSRF-TOKEN': decodeURIComponent(t) } : {}
+
+  try {
+    const res = await fetch('/api/upload/image', { method: 'POST', headers, body: formData })
+    const json = await res.json()
+    const raw = json?.path || json?.data?.url || json?.location || ''
+    if (!raw) throw new Error('Upload response missing image path')
+
+    form.value.image = raw
     ElMessage.success('上傳成功')
+    options?.onSuccess?.(json)
+  } catch (e) {
+    console.error('封面圖上傳失敗:', e)
+    ElMessage.error('上傳失敗，請稍後再試')
+    options?.onError?.(e)
   }
 }
 
